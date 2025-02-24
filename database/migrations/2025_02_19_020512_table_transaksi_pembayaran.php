@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('transaksi_pembayaran', function (Blueprint $table) {
             $table->id('ID_Transaksi');
+            $table->string('No_Transaksi')->unique();
             $table->unsignedBigInteger('ID_Pemakaian');
             $table->unsignedBigInteger('ID_Pelanggan');
             $table->dateTime('TanggalPembayaran');

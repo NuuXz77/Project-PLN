@@ -32,13 +32,13 @@ new #[Layout('layouts.guest')] class extends Component
     <form wire:submit="login">
         {{-- Logo / Head --}}
         <div>
-            {{-- <x-application-logo class="m-auto w-20 h-20 fill-current text-gray-900" /> --}}
-            <x-input-label for="judul" :value="__('LOGIN')" class="text-center font-bold text-4xl my-8"/>
+            {{-- <x-application-logo class="mx-auto w-20 h-20 fill-current text-gray-900 dark:text-white" /> --}}
+            <x-input-label for="judul" :value="__('Login Admin')" class="text-center font-bold text-4xl my-8"/>
         </div>
         <!-- Email Address -->
         <div>
             <x-input-label for="email" :value="__('Email')" />
-            <x-mary-input wire:model="form.email" id="email" class="block mt-1 w-full" type="email" name="email" required autofocus autocomplete="username" />
+            <x-text-input wire:model="form.email" id="email" class="block mt-1 w-full" type="email" name="email" required autofocus autocomplete="username" />
             <x-input-error :messages="$errors->get('form.email')" class="mt-2" />
         </div>
 
@@ -47,7 +47,7 @@ new #[Layout('layouts.guest')] class extends Component
     <x-input-label for="password" :value="__('Password')" />
 
     <div class="relative">
-        <x-mary-input wire:model="form.password" id="password" class="block mt-1 w-full pr-10"
+        <x-text-input wire:model="form.password" id="password" class="block mt-1 w-full pr-10"
             type="password"
             name="password"
             required autocomplete="current-password" />

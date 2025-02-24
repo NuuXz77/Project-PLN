@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('pelanggan', function (Blueprint $table) {
             $table->id('ID_Pelanggan');
+            $table->string('No_Kontrol')->unique();
             $table->string('Nama', 100);
             $table->text('Alamat');
             $table->string('Telepon', 15);
