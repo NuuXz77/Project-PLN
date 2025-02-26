@@ -16,17 +16,16 @@
 
                 <!-- Card 2 -->
                 <x-mary-card class="bg-white dark:bg-secondary" title="Pemakaian" subtitle="456" shadow separator>
-                    <i class="fas fa-credit-card text-4xl"></i>
+                    <i class="fas fa-bolt text-4xl"></i>
                 </x-mary-card>
 
                 <!-- Card 3 -->
-                <x-mary-card class="bg-white dark:bg-secondary" title="Pembayaran" subtitle="789" shadow separator>
-                    <i class="fas fa-money-bill-wave text-4xl"></i>
+                    <i class="fas fa-credit-card text-4xl"></i>
                 </x-mary-card>
 
                 <!-- Card 4 -->
                 <x-mary-card class="bg-white dark:bg-secondary" title="Transaksi" subtitle="369" shadow separator>
-                    <i class="fas fa-bolt text-4xl"></i>
+                    <i class="fas fa-money-bill-wave text-4xl"></i>
                 </x-mary-card>
             </div>
 

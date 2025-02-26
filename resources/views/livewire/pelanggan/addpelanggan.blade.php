@@ -11,7 +11,8 @@ new class extends Component {
     public $Telepon;
     public $Email;
     public $Jenis_Plg;
-    
+
+
     // Rules untuk validasi
     protected $rules = [
         'No_Kontrol' => 'required|unique:pelanggan,No_Kontrol', // Sesuaikan dengan nama tabel dan kolom
@@ -73,35 +74,47 @@ new class extends Component {
     <x-mary-modal wire:model="addModal" class="backdrop-blur">
         <x-mary-header title="Tambah Pelanggan" subtitle="Isikan data yang benar!" separator />
         <x-mary-form wire:submit="save" no-separator>
-            <!-- No Kontrol (Auto) -->
-            <x-mary-input label="No Kontrol" wire:model="No_Kontrol" />
-
-            <!-- Nama Pelanggan -->
-            <x-mary-input label="Nama Pelanggan" wire:model="Nama" />
-
-            <!-- Alamat -->
-            <x-mary-input label="Alamat" wire:model="Alamat" />
-
-            <!-- Telepon -->
-            <x-mary-input label="Telepon" wire:model="Telepon" />
-
-            <!-- Email -->
-            <x-mary-input label="Email" wire:model="Email" />
-
-            <!-- Jenis Pelanggan (Select) -->
-            <x-mary-select
-                label="Jenis Pelanggan"
-                wire:model="Jenis_Plg"
-                :options="[
-                    ['id' => '1', 'name' => 'Pelanggan Biasa'],
-                    ['id' => '2', 'name' => 'Pelanggan Premium'],
-                    ['id' => '3', 'name' => 'Pelanggan VIP'],
+            <div class="grid grid-cols-12 gap-4">
+                <div class="col-span-6">
+                    <x-mary-input label="No Kontrol" wire:model="No_Kontrol" />
+                </div>
+                <div class="col-span-6">
+                    <x-mary-input label="Nama Pelanggan" wire:model="Nama" />
+                </div>
+            </div>
+            <div class="grid grid-cols-12 gap-4">
+                <div class="col-span-4">
+                    <div class="col-span-6">
+                        <x-mary-select
+                            label="Jenis Pelanggan"
+                            wire:model="Jenis_Plg"
+                            :options="[
+                    ['id' => '1', 'name' => 'Bisnis'],
+                    ['id' => '2', 'name' => 'Rumah Tangga'],
+                    ['id' => '3', 'name' => 'Industri'],
                 ]"
-                option-value="id"
-                option-label="name"
-                placeholder="Pilih Jenis Pelanggan"
-            />
-
+                            option-value="id"
+                            option-label="name"
+                            placeholder="Pilih Jenis Pelanggan" />
+                    </div>
+                </div>
+                <div class="col-span-4">
+                    <x-mary-input label="Email" wire:model="Email" />
+                </div>
+                <div class="col-span-4">
+                    <x-mary-input label="Telepon" wire:model="Telepon" />
+                </div>
+            </div>
+            <div class="grid grid-cols-12 gap-4">
+                <div class="col-span-12 mt-3">
+                    <x-mary-textarea
+                        wire:model="Alamat"
+                        placeholder="Your Address ..."
+                        hint="Max 1000 chars"
+                        rows="3"
+                        inline />
+                </div>
+            </div>
             <x-slot:actions>
                 <x-mary-button label="Cancel" @click="$wire.addModal = false" />
                 <x-mary-button label="Save" class="btn-primary" type="submit" spinner="save" />
