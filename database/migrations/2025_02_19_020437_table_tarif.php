@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('tarif', function (Blueprint $table) {
             $table->id('ID_Tarif');
+            $table->string('No_Tarif')->unique();
             $table->enum('Jenis_Plg', ['Rumah Tangga', 'Bisnis', 'Industri']);
             $table->integer('Daya');
             $table->decimal('BiayaBeban', 10, 2);

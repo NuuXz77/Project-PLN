@@ -1,5 +1,6 @@
 import defaultTheme from 'tailwindcss/defaultTheme';
 import forms from '@tailwindcss/forms';
+import theme from 'tailwindcss/defaultTheme';
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -33,14 +34,14 @@ export default {
         require('daisyui'),
     ],
     daisyui: {
-        themes: [
+        themes: ['light','dark',
       {
-        mytheme: {
+        dark: {
           "primary": "#22D3EE", // Biru cerah
           "secondary": "#3B82F6", // Biru muda
           "accent": "#F59E0B", // Oranye cerah
           "neutral": "#4B5563", // Abu-abu netral
-          "base-100": "#111827", // Latar belakang putih
+          "base-100": "#1f2937", // Latar belakang putih
           "info": "#3B82F6", // Biru (untuk info)
           "success": "#10B981", // Hijau (untuk sukses)
           "warning": "#F59E0B", // Kuning (untuk peringatan)
