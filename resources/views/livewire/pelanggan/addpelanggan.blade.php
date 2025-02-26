@@ -12,6 +12,7 @@ new class extends Component {
     public $Email;
     public $Jenis_Plg;
 
+
     // Rules untuk validasi
     protected $rules = [
         'No_Kontrol' => 'required|unique:pelanggan,No_Kontrol', // Sesuaikan dengan nama tabel dan kolom

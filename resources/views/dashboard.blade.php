@@ -20,7 +20,6 @@
                 </x-mary-card>
 
                 <!-- Card 3 -->
-                <x-mary-card class="bg-white dark:bg-secondary" title="Pembayaran" subtitle="789" shadow separator>
                     <i class="fas fa-credit-card text-4xl"></i>
                 </x-mary-card>
 
