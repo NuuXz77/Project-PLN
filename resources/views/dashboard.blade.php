@@ -54,14 +54,11 @@
             <!-- Grafik Section -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-3">
                 <div class="bg-white dark:bg-secondary p-3 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold">Total Pendapatan</h3>
-                    <p class="text-lg">237.000.000/bln</p>
-                    <i class="fas fa-chart-bar text-6xl"></i>
+                    <livewire:transaksi>
                 </div>
 
                 <div class="bg-white dark:bg-secondary p-3 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold">Distribusi Transaksi</h3>
-                    <i class="fas fa-chart-pie text-6xl"></i>
+                    <livewire:category/>
                 </div>
             </div>
         </div>
