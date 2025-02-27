@@ -53,20 +53,20 @@
                         <x-slot:actions>
                             {{-- Submenu --}}
                             <x-mary-dropdown title="Settings" icon="o-cog-6-tooth">
-                                <x-mary-menu-item title="Profile" icon="o-cog-6-tooth" :href="route('profile')" wire:navigate />
+                                <x-mary-menu-item title="Profile" icon="m-user-circle" :href="route('profile')" wire:navigate />
                                 <livewire:layout.theme-toggle />
                                 <livewire:layout.logout-button />
                             </x-mary-dropdown>
                         </x-slot:actions>
                     </x-mary-list-item>
- 
+
                     <x-mary-menu-separator />
                 @endif
                 <x-mary-menu-item title="Dashboard" icon="o-home" link="/dashboard" />
-                <x-mary-menu-item title="Pelanggan" icon="o-home" link="/pelanggan" />
-                <x-mary-menu-item title="Pemakaian" icon="o-home" link="/pemakaian" />
-                <x-mary-menu-item title="Tarif" icon="o-home" link="/tarif" />
-                <x-mary-menu-item title="Transaksi" icon="o-home" link="/transaksi" />
+                <x-mary-menu-item title="Pelanggan" icon="o-users" link="/pelanggan" />
+                <x-mary-menu-item title="Pemakaian" icon="o-bolt" link="/pemakaian" />
+                <x-mary-menu-item title="Tarif" icon="o-credit-card" link="/tarif" />
+                <x-mary-menu-item title="Transaksi" icon="o-currency-dollar" link="/transaksi" />
                 <x-mary-menu-sub title="Settings" icon="o-cog-6-tooth">
                     <x-mary-menu-item title="Wifi" icon="o-wifi" link="####" />
                     <x-mary-menu-item title="Archives" icon="o-archive-box" link="####" />
