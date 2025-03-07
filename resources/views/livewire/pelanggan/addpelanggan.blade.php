@@ -77,7 +77,7 @@ new class extends Component {
         $this->reset(['No_Kontrol', 'Nama', 'Alamat', 'Telepon', 'Email', 'Jenis_Plg']);
     }
 
- 
+ ///sss
     public function openModal()
     {
         $this->addModal = true;
