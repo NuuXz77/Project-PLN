@@ -1,21 +1,23 @@
 <div>
-    <x-mary-header title="Pelanggan" subtitle="Dashboard / Pelanggan" separator progress-indicator>
+    <x-mary-header title="Pelanggan" separator progress-indicator>
         <x-slot:middle class="!justify-end">
-            <x-mary-input icon="o-bolt" placeholder="Search..." />
+            <livewire:pelanggan.search-pelanggan name="search-pelanggan"/>
         </x-slot:middle>
         <x-slot:actions>
-            <x-mary-button icon="o-funnel" />
+            <livewire:pelanggan.filter-pelanggan name="filterDraw"/>
             <livewire:pelanggan.addpelanggan name="addModal" />
+            <livewire:pelanggan.showpelanggan name="viewModal" />
+            <livewire:pelanggan.deletepelanggan name="deleteModal" />
         </x-slot:actions>
     </x-mary-header>
 
-    <x-mary-table 
+    <x-mary-table class="bg-white dark:bg-base-100" 
         :headers="$headers" 
         :rows="$pelanggan"
         with-pagination
         per-page="perPage"
         :per-page-values="[3, 5, 10]"
-    >
+        >
         <!-- Custom Kolom Nomor -->
         @scope('row_number', $row)
             <span>{{ $row['number'] }}</span>
@@ -30,16 +32,13 @@
 
                 <x-mary-menu-item
                     icon="o-eye" 
-                    wire:click="showPelanggan({{ $row['id_pelanggan'] }})"
+                    wire:click="showpelanggan({{ $row['id_pelanggan'] }})"
                 />
                 <x-mary-menu-item 
                     icon="o-pencil-square" 
                     wire:click="editPelanggan({{ $row['id_pelanggan'] }})"
                 />
-                <x-mary-menu-item 
-                    icon="o-trash" 
-                    wire:click="deletePelanggan({{ $row['id_pelanggan'] }})"
-                />
+                <livewire:pelanggan.deletepelanggan name="deleteModal"/>
             </x-mary-dropdown>
         @endscope
 

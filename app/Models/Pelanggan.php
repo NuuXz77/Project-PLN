@@ -22,6 +22,12 @@ class Pelanggan extends Model
         'Jenis_Plg',
     ];
 
+    // Relasi ke tabel Pemakaian
+    public function pemakaian()
+    {
+        return $this->hasMany(Pemakaian::class, 'no_kontrol', 'no_kontrol');
+    }
+
     // Tipe data kolom (opsional)
     protected $casts = [
         'Jenis_Plg' => 'string', // Enum akan di-cast sebagai string

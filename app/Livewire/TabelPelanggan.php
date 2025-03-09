@@ -4,9 +4,22 @@ namespace App\Livewire;
 
 use App\Models\Pelanggan;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class TabelPelanggan extends Component
 {
+    use WithPagination;
+
+    public $search = ''; // Properti untuk menyimpan nilai pencarian
+    public $perPage = 5; // Jumlah item per halaman
+    // Daftarkan event listener untuk menerima nilai pencarian
+    protected $listeners = ['searchUpdated' => 'updateSearch'];
+
+    public function updateSearch($value)
+    {
+        $this->search = $value;
+        $this->resetPage();
+    }
     public function render()
     {
         $headers = [
@@ -17,14 +30,17 @@ class TabelPelanggan extends Component
             ['key' => 'Telepon', 'label' => 'Telepon'],
             ['key' => 'Email', 'label' => 'Email'],
             ['key' => 'Jenis_Plg', 'label' => 'Jenis Pelanggan'],
-            ['key' => 'actions', 'label' => 'Aksi'],
         ];
-
-        // Ambil data pelanggan dengan pagination
-        $pelanggan = Pelanggan::paginate(5);
+        // Ambil data pelanggan dengan pencarian dan pagination
+        $pelanggan = Pelanggan::query()
+            ->when($this->search, function ($query) {
+                $query->where('Nama', 'likep', '%' . $this->search . '%')
+                    ->orWhere('No_Kontrol', 'like', '%' . $this->search . '%');
+            })
+            ->paginate($this->perPage);
 
         // Tambahkan nomor urut dinamis
-        $pelanggan->getCollection()->transform(function ($item, $index) use ($pelanggan) {
+        collect($pelanggan->items())->transform(function ($item, $index) use ($pelanggan) {
             $item->number = ($pelanggan->currentPage() - 1) * $pelanggan->perPage() + $index + 1;
             return $item;
         });

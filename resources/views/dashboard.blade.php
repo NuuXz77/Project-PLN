@@ -1,12 +1,13 @@
 <x-layouts.app>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-secondary dark:text-gray-200 leading-tight">
+        <h2 class="font-semibold text-xl leading-tight">
             <x-mary-header title="Dashboard" separator />
         </h2>
     </x-slot>
     
     <div>
-        <div class="max-w-7xl mx-auto">
+        <livewire:pelanggan.statiska-info/>
+        <div class="">
             <div class="overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4 p-3">
                 <!-- Card 1 -->
@@ -20,6 +21,7 @@
                 </x-mary-card>
 
                 <!-- Card 3 -->
+                <x-mary-card class="bg-white dark:bg-secondary" title="Tarif" subtitle="456" shadow separator>
                     <i class="fas fa-credit-card text-4xl"></i>
                 </x-mary-card>
 
@@ -27,39 +29,6 @@
                 <x-mary-card class="bg-white dark:bg-secondary" title="Transaksi" subtitle="369" shadow separator>
                     <i class="fas fa-money-bill-wave text-4xl"></i>
                 </x-mary-card>
-            </div>
-
-            @php
-                $slides = [
-                    [
-                        'image' => 'https://web.pln.co.id/statics/uploads/2024/12/fa-nataru.png',
-                    ],
-                    [
-                        'image' => 'https://web.pln.co.id/statics/uploads/2024/11/banner-hln.jpg',
-                    ],
-                    [
-                        'image' => 'https://web.pln.co.id/statics/uploads/2024/10/JA_WebBanner-1920x556_311024.jpg',
-                    ],
-                    [
-                        'image' => 'https://web.pln.co.id/statics/uploads/2024/03/Kalender-Banner_1920x556px.jpg',
-                    ],
-                ];
-            @endphp
-
-            <div class="grid grid-cols-1 md:grid-cols-1 gap-4 p-3">
-                <x-mary-carousel class="bg-white dark:bg-secondary" :slides="$slides" />
-            </div>
-            
-
-            <!-- Grafik Section -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-3">
-                <div class="bg-white dark:bg-secondary p-3 rounded-lg shadow-md">
-                    <livewire:transaksi>
-                </div>
-
-                <div class="bg-white dark:bg-secondary p-3 rounded-lg shadow-md">
-                    <livewire:category/>
-                </div>
             </div>
         </div>
     </div>
