@@ -19,9 +19,8 @@ Route::view('pelanggan', 'pelanggan')
     ->middleware(['auth'])
     ->name('pelanggan');
 
-    Route::view('addpelanggan', 'addpelanggan')
+Route::view('pemakaian', 'pemakaian')
     ->middleware(['auth'])
-    ->name('addpelanggan');
-    
+    ->name('pemakaian');
     
 require __DIR__.'/auth.php';

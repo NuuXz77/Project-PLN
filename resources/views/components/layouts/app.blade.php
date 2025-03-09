@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="mytheme">
+<html lang="en" data-theme="dark">
 <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -39,7 +39,7 @@
         <x-slot:sidebar drawer="main-drawer" collapsible class="bg-base-100 lg:bg-inherit">
             {{-- BRAND --}}
             <div class="ml-5 pt-5">
-                <img src="{{asset('img/Logo_PLN.svg')}}" alt="" width="90">
+                <img src="{{asset('img/Logo_PLN.svg')}}" alt="" width="100">
             </div>
  
             {{-- MENU --}}
@@ -79,8 +79,8 @@
         <x-slot:content>
             <!-- Page Heading -->
                 @if (isset($header))
-                    <header class="bg-white dark:bg-secondary shadow sm:rounded-lg m-3">
-                        <div class="max-w-7xl mx-auto py-5 px-4 sm:px-6 lg:px-8">
+                    <header>
+                        <div>
                             {{ $header }}
                         </div>
                     </header>
@@ -92,6 +92,8 @@
  
      {{-- Toast --}}
     <x-mary-toast />
+
+    <x-mary-spotlight />
 
     @livewireScripts 
 </body>

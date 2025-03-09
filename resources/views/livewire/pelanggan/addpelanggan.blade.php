@@ -86,8 +86,7 @@ new class extends Component {
 ?>
 
 <div>
-    <!-- Modal untuk menambahkan pelanggan -->
-    <x-mary-modal wire:model="addModal" class="backdrop-blur">
+    <x-mary-modal wire:model="addModal" class="backdrop-blur" box-class="max-w-4xl w-100">
         <x-mary-header title="Tambah Pelanggan" subtitle="Isikan data yang benar!" separator />
         <x-mary-form wire:submit.prevent="save" no-separator>
             <div class="grid grid-cols-12 gap-4">

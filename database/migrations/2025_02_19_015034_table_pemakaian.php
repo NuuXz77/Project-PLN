@@ -14,17 +14,17 @@ return new class extends Migration
         Schema::create('pemakaian', function (Blueprint $table) {
             $table->id('ID_Pemakaian');
             $table->string('No_Pemakaian')->unique();
-            $table->unsignedBigInteger('ID_Pelanggan');
+            $table->string('No_kontrol');
             $table->date('TanggalCatat');
             $table->integer('MeterAwal');
             $table->integer('MeterAkhir');
             $table->integer('JumlahPakai');
-            $table->decimal('BiayaBebanPemakai', 10, 2);
+            $table->decimal('BiayaBebanPemakaian', 10, 2);
             $table->decimal('BiayaPemakaian', 10, 2);
             $table->enum('StatusPembayaran', ['Belum Lunas', 'Lunas']);
             $table->timestamps();
 
-            $table->foreign('ID_Pelanggan')->references('ID_Pelanggan')->on('pelanggan')->onDelete('cascade');
+            $table->foreign('No_kontrol')->references('No_kontrol')->on('pelanggan')->onDelete('cascade');
         });
     }
 
