@@ -22,5 +22,9 @@ Route::view('pelanggan', 'pelanggan')
 Route::view('pemakaian', 'pemakaian')
     ->middleware(['auth'])
     ->name('pemakaian');
+
+Route::view('tarif', 'tarif')
+    ->middleware(['auth'])
+    ->name('tarif');
     
 require __DIR__.'/auth.php';

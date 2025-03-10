@@ -73,9 +73,18 @@
                     <x-mary-button icon="m-ellipsis-vertical" class="bg-transparent border-none" />
                 </x-slot:trigger>
 
-                <x-mary-menu-item icon="o-eye" wire:click="showPemakaian({{ $row->id }})" />
-                <x-mary-menu-item icon="o-pencil-square" wire:click="editPemakaian({{ $row->id }})" />
-                <x-mary-menu-item icon="o-trash" wire:click="deletePemakaian({{ $row->id }})" />
+                <x-mary-menu-item
+                    icon="o-eye"
+                    wire:click="$dispatch('showModal', { id: '{{ $row->ID_Pemakaian }}' })"
+                />
+                <x-mary-menu-item
+                    icon="o-pencil-square"
+                    wire:click="$dispatch('showEditModal', { id: '{{ $row->ID_Pemakaian }}' })"
+                />
+                <x-mary-menu-item
+                    icon="o-trash"
+                    wire:click="$dispatch('showDeleteModal', { id: '{{ $row->ID_Pemakaian }}' })"
+                />
             </x-mary-dropdown>
         @endscope
 
@@ -83,4 +92,9 @@
             <x-mary-icon name="o-cube" label="Data Pemakaian Tidak Tersedia." />
         </x-slot:empty>
     </x-mary-table>
+
+    <!-- Komponen modal untuk melihat, mengedit, dan menghapus data -->
+    <livewire:pemakaian.show-pemakaian name="viewModal" />
+    <livewire:pemakaian.edit-pemakaian name="editModal" />
+    <livewire:pemakaian.delete-pemakaian name="deleteModal" />
 </div>

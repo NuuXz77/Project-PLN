@@ -1,9 +1,14 @@
 <?php
 
 use Livewire\Volt\Component;
+use Livewire\WithPagination;
 use App\Models\Pelanggan;
+use App\Models\Tarif; // Tambahkan ini untuk mengakses model Tarif
+use Mary\Traits\Toast;
 
 new class extends Component {
+    use Toast;
+
     public $addModal = false;
     public $No_Kontrol;
     public $Nama;
@@ -12,22 +17,34 @@ new class extends Component {
     public $Email;
     public $Jenis_Plg;
 
-    
+    // Tambahkan properti untuk menyimpan opsi Jenis_Plg dari tabel Tarif
+    public $jenisPlgOptions = [];
+
+    // Method untuk mengambil data Jenis_Plg dari tabel Tarif
+    public function mount()
+    {
+        $this->jenisPlgOptions = Tarif::all('No_Tarif', 'Jenis_Plg')->toArray();
+        // dump($this->jenisPlgOptions);
+    }
+
+    public function refreshTable()
+    {
+        $this->dispatch('addSuccess');
+    }
+
     protected $rules = [
         'Nama' => 'required|string|max:255',
         'Alamat' => 'required|string|max:1000',
         'Telepon' => 'required|numeric|min:10',
         'Email' => 'required|email',
-        'Jenis_Plg' => 'required|in:1,2,3',
+        'Jenis_Plg' => 'required', // Validasi Jenis_Plg
     ];
 
     public function updatedTelepon()
     {
-      
         $this->generateKodeKontrol();
     }
 
-    
     public function generateKodeKontrol()
     {
         if (empty($this->Telepon)) {
@@ -35,19 +52,15 @@ new class extends Component {
             return;
         }
 
-      
         $noTeleponLast6 = substr($this->Telepon, -6);
 
-       
         do {
             $this->No_Kontrol = 'PLN-' . strtoupper($noTeleponLast6);  // Format: PLN-123456
         } while (Pelanggan::where('No_Kontrol', $this->No_Kontrol)->exists());
     }
 
- 
     public function save()
     {
-        
         $this->validate();
 
         if (empty($this->No_Kontrol)) {
@@ -55,7 +68,6 @@ new class extends Component {
             return;
         }
 
-     
         Pelanggan::create([
             'No_Kontrol' => $this->No_Kontrol,
             'Nama' => $this->Nama,
@@ -65,19 +77,31 @@ new class extends Component {
             'Jenis_Plg' => $this->Jenis_Plg,
         ]);
 
-       
+        // Toast
+        $this->toast(
+            type: 'success',
+            title: 'It is done!',
+            description: null,
+            position: 'bottom-end',
+            icon: 'o-information-circle',
+            css: 'alert-info',
+            timeout: 3000,
+            redirectTo: null
+        );
+
+        $this->success('Data Berhasil Di Tambahkan !');
         $this->resetForm();
+        $this->refreshTable();
         $this->addModal = false;
+
         session()->flash('message', 'Pelanggan berhasil ditambahkan!');
     }
 
-    
     public function resetForm()
     {
         $this->reset(['No_Kontrol', 'Nama', 'Alamat', 'Telepon', 'Email', 'Jenis_Plg']);
     }
 
- ///sss
     public function openModal()
     {
         $this->addModal = true;
@@ -95,8 +119,7 @@ new class extends Component {
                     <x-mary-input label="No Kontrol" wire:model="No_Kontrol" readonly class="text-cyan-50"/>
                 </div>
                 <div class="col-span-6">
-                    <x-mary-input label="Nama Pelanggan" wire:model="Nama" class="text-cyan-50" />
-                    @error('Nama') <span class="text-red-500">{{ $message }}</span> @enderror
+                    <x-mary-input label="Nama Pelanggan" wire:model="Nama" class="text-cyan-50"  />
                 </div>
             </div>
 
@@ -105,21 +128,18 @@ new class extends Component {
                     <x-mary-select
                         label="Jenis Pelanggan"
                         wire:model="Jenis_Plg"
-                        :options="[ ['id' => '1', 'name' => 'Bisnis'], ['id' => '2', 'name' => 'Rumah Tangga'], ['id' => '3', 'name' => 'Industri'], ]"
-                        option-value="id"
-                        option-label="name"
+                        :options="$this->jenisPlgOptions"
+                        option-value="No_Tarif"
+                        option-label="Jenis_Plg"
                         placeholder="Pilih Jenis Pelanggan"
                         class="text-cyan-50"
                     />
-                    @error('Jenis_Plg') <span class="text-red-500">{{ $message }}</span> @enderror
                 </div>
                 <div class="col-span-4">
                     <x-mary-input label="Email" wire:model="Email" class="text-cyan-50" />
-                    @error('Email') <span class="text-red-500">{{ $message }}</span> @enderror
                 </div>
                 <div class="col-span-4">
                     <x-mary-input label="Telepon" wire:model="Telepon" class="text-cyan-50" />
-                    @error('Telepon') <span class="text-red-500">{{ $message }}</span> @enderror
                 </div>
             </div>
 
@@ -132,7 +152,6 @@ new class extends Component {
                         rows="3"
                         inline class="text-cyan-50"
                     />
-                    @error('Alamat') <span class="text-red-500">{{ $message }}</span> @enderror
                 </div>
             </div>
 
