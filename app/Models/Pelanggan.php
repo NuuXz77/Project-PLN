@@ -25,7 +25,13 @@ class Pelanggan extends Model
     // Relasi ke tabel Pemakaian
     public function pemakaian()
     {
-        return $this->hasMany(Pemakaian::class, 'no_kontrol', 'no_kontrol');
+        return $this->hasMany(Pemakaian::class, 'No_Kontrol', 'No_Kontrol');
+    }
+
+    // Relasi ke tabel Tarif berdasarkan Jenis_Plg
+    public function tarif()
+    {
+        return $this->belongsTo(Tarif::class, 'Jenis_Plg', 'Jenis_Plg');
     }
 
     // Tipe data kolom (opsional)

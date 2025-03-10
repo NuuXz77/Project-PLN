@@ -1,18 +1,17 @@
 <div>
-    <x-mary-header title="Pelanggan" separator progress-indicator>
+    <x-mary-header title="Tarif" separator progress-indicator>
         <x-slot:middle class="!justify-end">
             <livewire:pelanggan.search-pelanggan name="search-pelanggan"/>
         </x-slot:middle>
         <x-slot:actions>
             <livewire:pelanggan.filter-pelanggan name="filterDraw"/>
-            <livewire:pelanggan.addpelanggan name="addModal" />
-
+            <livewire:tarif.add-tarif name="addModal" />
         </x-slot:actions>
     </x-mary-header>
 
     <x-mary-table class="bg-white dark:bg-base-100" 
         :headers="$headers" 
-        :rows="$pelanggan"
+        :rows="$tarif"
         with-pagination
         per-page="perPage"
         :per-page-values="[3, 5, 10]"
@@ -22,7 +21,8 @@
             <span>{{ $row['number'] }}</span>
         @endscope
 
-         @scope('actions', $row)
+        <!-- Custom Kolom Aksi -->
+        @scope('actions', $row)
             <x-mary-dropdown>
                 <x-slot:trigger>
                     <x-mary-button icon="m-ellipsis-vertical" class="bg-transparent dark:bg-transparent border-none" />
@@ -30,27 +30,30 @@
 
                 <x-mary-menu-item
                     icon="o-eye"
-                    wire:click="$dispatch('showModal', { id: '{{ $row['ID_Pelanggan'] }}' })"
+                    wire:click="$dispatch('showModal', { id: '{{ $row['ID_Tarif'] }}' })"
+                    spiner
                 />
                 <x-mary-menu-item
                     icon="o-pencil-square"
-                    wire:click="$dispatch('showEditModal', { id: '{{ $row['ID_Pelanggan'] }}' })"
+                    wire:click="$dispatch('showEditModal', { id: '{{ $row['ID_Tarif'] }}' })"
+                    spiner
                 />
                 <x-mary-menu-item
                     icon="o-trash"
-                    wire:click="$dispatch('showDeleteModal', { id: '{{ $row['ID_Pelanggan'] }}',no: '{{ $row['No_Kontrol'] }}' })"
+                    wire:click="$dispatch('showDeleteModal', { id: '{{ $row['ID_Tarif'] }}', no: '{{ $row['No_Tarif'] }}' })"
+                    spiner
                 />
             </x-mary-dropdown>
         @endscope
 
-        <!-- Letakkan komponen di luar -->
-        
-        
+        <!-- Tampilkan pesan jika data kosong -->
         <x-slot:empty>
-            <x-mary-icon name="o-cube" label="Data Pelanggan Tidak Tersedia." />
+            <x-mary-icon name="o-cube" label="Data Tarif Tidak Tersedia." />
         </x-slot:empty>
     </x-mary-table>
-    <livewire:pelanggan.showpelanggan name="viewModal" />
-    <livewire:pelanggan.editpelanggan name="editModal" />
-    <livewire:pelanggan.deletepelanggan name="deleteModal" />
+
+    <!-- Komponen modal untuk melihat, mengedit, dan menghapus data -->
+    <livewire:tarif.show-tarif name="viewModal" />
+    <livewire:tarif.edit-tarif name="editModal" />
+    <livewire:tarif.delete-tarif name="deleteModal" />
 </div>

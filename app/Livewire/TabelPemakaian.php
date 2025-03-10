@@ -13,7 +13,18 @@ class TabelPemakaian extends Component
     public $search = '';
     public $perPage = 5;
 
-    protected $listeners = ['searchUpdated' => 'updateSearch'];
+    // Daftarkan event listener untuk menerima nilai pencarian
+    protected $listeners = [
+        'searchUpdated' => 'updateSearch',
+        'addSuccess' => 'refreshTable',
+        'editSuccess' => 'refreshTable',
+        'deleteSuccess' => 'refreshTable',
+    ];
+
+    public function refreshTable()
+    {
+        $this->resetPage();
+    }
 
     public function updateSearch($value)
     {

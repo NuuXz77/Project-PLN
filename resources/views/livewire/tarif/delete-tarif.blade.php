@@ -1,13 +1,11 @@
 <?php
 
 use Livewire\Volt\Component;
-use App\Models\Pelanggan;
-use Livewire\WithPagination;
+use App\Models\Tarif;
 use Mary\Traits\Toast;
 
 new class extends Component {
     use Toast;
-    // use WithPagination;
 
     public function refreshTable()
     {
@@ -15,35 +13,34 @@ new class extends Component {
     }
 
     public bool $deleteModal = false;
-    public $pelangganId = null;
-    public $pelangganNo = null;
+    public $tarifId = null;
+    public $tarifNo = null;
 
     // Menerima event dari $dispatch
     protected $listeners = ['showDeleteModal' => 'openModal'];
 
-    // Membuka modal dan menyimpan ID pelanggan
-    public function openModal($no,$id): void
+    // Membuka modal dan menyimpan ID tarif
+    public function openModal($no, $id): void
     {
-        // dump($no,$id);
-        $this->pelangganNo = $no;
-        $this->pelangganId = $id;
+        $this->tarifNo = $no;
+        $this->tarifId = $id;
         $this->deleteModal = true;
     }
 
-    // Fungsi hapus pelanggan
-    public function deletePelanggan()
+    // Fungsi hapus tarif
+    public function deleteTarif()
     {
         try {
-            $pelanggan = Pelanggan::find($this->pelangganId);
+            $tarif = Tarif::find($this->tarifId);
 
-            if ($pelanggan) {
-                $pelanggan->delete();
+            if ($tarif) {
+                $tarif->delete();
 
                 // Toast
                 $this->toast(
                     type: 'success',
                     title: 'It is done!',
-                    description: 'Data Berhasil Di Hapus!',
+                    description: 'Data Tarif Berhasil Dihapus!',
                     position: 'toast-top toast-end',
                     icon: 'o-information-circle',
                     css: 'alert-info',
@@ -54,7 +51,7 @@ new class extends Component {
                 $this->toast(
                     type: 'error',
                     title: 'Error!',
-                    description: 'Pelanggan tidak ditemukan.',
+                    description: 'Tarif tidak ditemukan.',
                     position: 'toast-top toast-end',
                     icon: 'o-information-circle',
                     css: 'alert-error',
@@ -66,7 +63,7 @@ new class extends Component {
             $this->toast(
                 type: 'error',
                 title: 'Error!',
-                description: 'Terjadi kesalahan saat menghapus pelanggan.',
+                description: 'Terjadi kesalahan saat menghapus tarif.',
                 position: 'toast-top toast-end',
                 icon: 'o-information-circle',
                 css: 'alert-error',
@@ -85,11 +82,11 @@ new class extends Component {
     <!-- Modal Delete -->
     <x-mary-modal wire:model="deleteModal" class="backdrop-blur">
         <div class="mb-5">
-            Apakah Anda yakin ingin menghapus pelanggan dengan ID: {{ $pelangganNo }}?
+            Apakah Anda yakin ingin menghapus tarif dengan No: {{ $tarifNo }}?
         </div>
 
         <!-- Tombol Hapus -->
-        <x-mary-button label="Hapus" class="btn-error" wire:click="deletePelanggan" />
+        <x-mary-button label="Hapus" class="btn-error" wire:click="deleteTarif" />
         <!-- Tombol Batal -->
         <x-mary-button label="Batal" @click="$wire.deleteModal = false" />
     </x-mary-modal>

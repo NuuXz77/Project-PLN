@@ -2,17 +2,17 @@
 
 namespace App\Livewire;
 
-use App\Models\Pelanggan;
+use App\Models\Tarif;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class TabelPelanggan extends Component
+class TabelTarif extends Component
 {
     use WithPagination;
-    public $pelangganId = null; // ID pelanggan yang sedang diedit
 
     public $search = ''; // Properti untuk menyimpan nilai pencarian
     public $perPage = 5; // Jumlah item per halaman
+
     // Daftarkan event listener untuk menerima nilai pencarian
     protected $listeners = [
         'searchUpdated' => 'updateSearch',
@@ -21,11 +21,8 @@ class TabelPelanggan extends Component
         'deleteSuccess' => 'refreshTable',
     ];
 
-    public function refreshTable(){
-        $this->resetPage();
-    }
-
-    public function DeleteModal(){
+    public function refreshTable()
+    {
         $this->resetPage();
     }
 
@@ -34,34 +31,36 @@ class TabelPelanggan extends Component
         $this->search = $value;
         $this->resetPage();
     }
+
     public function render()
     {
+        // Header tabel
         $headers = [
             ['key' => 'number', 'label' => 'No'], // Tambah nomor urut dinamis
-            ['key' => 'No_Kontrol', 'label' => 'No Kontrol'],
-            ['key' => 'Nama', 'label' => 'Nama Pelanggan'],
-            ['key' => 'Alamat', 'label' => 'Alamat'],
-            ['key' => 'Telepon', 'label' => 'Telepon'],
-            ['key' => 'Email', 'label' => 'Email'],
+            ['key' => 'No_Tarif', 'label' => 'No Tarif'],
             ['key' => 'Jenis_Plg', 'label' => 'Jenis Pelanggan'],
+            ['key' => 'Daya', 'label' => 'Daya'],
+            ['key' => 'BiayaBeban', 'label' => 'Biaya Beban'],
+            ['key' => 'TarifKWH', 'label' => 'Tarif KWH'],
         ];
-        // Ambil data pelanggan dengan pencarian dan pagination
-        $pelanggan = Pelanggan::query()
+
+        // Ambil data tarif dengan pencarian dan pagination
+        $tarif = Tarif::query()
             ->when($this->search, function ($query) {
-                $query->where('Nama', 'like', '%' . $this->search . '%')
-                    ->orWhere('No_Kontrol', 'like', '%' . $this->search . '%');
+                $query->where('No_Tarif', 'like', '%' . $this->search . '%')
+                    ->orWhere('Jenis_Plg', 'like', '%' . $this->search . '%');
             })
             ->paginate($this->perPage);
 
         // Tambahkan nomor urut dinamis
-        collect($pelanggan->items())->transform(function ($item, $index) use ($pelanggan) {
-            $item->number = ($pelanggan->currentPage() - 1) * $pelanggan->perPage() + $index + 1;
+        collect($tarif->items())->transform(function ($item, $index) use ($tarif) {
+            $item->number = ($tarif->currentPage() - 1) * $tarif->perPage() + $index + 1;
             return $item;
         });
 
-        return view('livewire.tabel-pelanggan', [
+        return view('livewire.tabel-tarif', [
             'headers' => $headers,
-            'pelanggan' => $pelanggan,
+            'tarif' => $tarif,
         ]);
     }
 }

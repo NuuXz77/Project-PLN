@@ -17,6 +17,12 @@ new class extends Component {
     public $StatusPembayaran;
     public $pelangganList = [];
 
+
+   public function refreshTable()
+    {
+        $this->dispatch('addSuccess');
+    }
+
     public function mount()
     {
         $this->pelangganList = Pelanggan::all(['No_Kontrol', 'Nama', 'created_at'])->toArray();
@@ -67,6 +73,7 @@ new class extends Component {
         ]);
 
         $this->resetForm();
+        $this->refreshTable();
         $this->addModal = false;
         session()->flash('message', 'Data pemakaian berhasil ditambahkan!');
     }

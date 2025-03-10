@@ -13,8 +13,11 @@ new class extends Component {
     public $Email;
     public $Jenis_Plg;
 
+    // Menerima event dari $dispatch
+    protected $listeners = ['showModal' => 'openModal'];
+
     // Method untuk membuka modal dan mengambil data berdasarkan customer_id
-    public function viewCustomer($id)
+    public function openModal($id)
     {
         // Ambil data pelanggan berdasarkan ID
         $pelanggan = Pelanggan::find($id);
@@ -92,10 +95,10 @@ new class extends Component {
         </x-slot:actions>
     </x-mary-modal>
 
-    <!-- Tombol untuk membuka modal (contoh) -->
+    {{-- <!-- Tombol untuk membuka modal (contoh) -->
     <x-mary-button 
         icon="o-eye" 
         class="btn-primary" 
         @click="$wire.viewModal = true"
-    />
+    /> --}}
 </div>
