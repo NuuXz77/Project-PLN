@@ -15,9 +15,6 @@ new #[Layout('layouts.guest')] class extends Component
     public string $password = '';
     public string $password_confirmation = '';
 
-    /**
-     * Handle an incoming registration request.
-     */
     public function register(): void
     {
         $validated = $this->validate([
@@ -34,11 +31,13 @@ new #[Layout('layouts.guest')] class extends Component
 
         $this->redirect(route('dashboard', absolute: false), navigate: true);
     }
-}; ?>
+};
+?>
 
 <div>
     <form wire:submit="register">
         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100 text-center pt-5">{{ __('Register') }}</h2>
+
         <!-- Name -->
         <div>
             <x-input-label for="name" :value="__('Name')" />
@@ -56,23 +55,14 @@ new #[Layout('layouts.guest')] class extends Component
         <!-- Password -->
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input wire:model="password" id="password" class="block mt-1 w-full !text-black"
-                type="password"
-                name="password"
-                required autocomplete="new-password" />
-
+            <x-text-input wire:model="password" id="password" class="block mt-1 w-full !text-black" type="password" name="password" required autocomplete="new-password" />
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
         <!-- Confirm Password -->
         <div class="mt-4">
             <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input wire:model="password_confirmation" id="password_confirmation" class="block mt-1 w-full !text-black"
-                type="password"
-                name="password_confirmation" required autocomplete="new-password" />
-
+            <x-text-input wire:model="password_confirmation" id="password_confirmation" class="block mt-1 w-full !text-black" type="password" name="password_confirmation" required autocomplete="new-password" />
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
@@ -83,6 +73,7 @@ new #[Layout('layouts.guest')] class extends Component
 
             <x-primary-button class="ms-4">
                 {{ __('Register') }}
+                <span wire:loading class="loading loading-spinner text-primary"></span>
             </x-primary-button>
         </div>
     </form>

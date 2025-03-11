@@ -15,17 +15,17 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
-            colors: {
-                // Warna kustom untuk tema
-                primary: '#60A5FA', // Biru cerah
-                secondary: '#083344', // Biru muda
-                accent: '#F59E0B', // Oranye cerah
-                neutral: '#4B5563', // Abu-abu netral
-                info: '#3B82F6', // Biru (untuk info)
-                success: '#10B981', // Hijau (untuk sukses)
-                warning: '#F59E0B', // Kuning (untuk peringatan)
-                error: '#EF4444', // Merah (untuk error)
-            }
+            // colors: {
+            //     // Warna kustom untuk tema
+            //     primary: '#60A5FA', // Biru cerah
+            //     secondary: '#083344', // Biru muda
+            //     accent: '#F59E0B', // Oranye cerah
+            //     neutral: '#4B5563', // Abu-abu netral
+            //     info: '#3B82F6', // Biru (untuk info)
+            //     success: '#10B981', // Hijau (untuk sukses)
+            //     warning: '#F59E0B', // Kuning (untuk peringatan)
+            //     error: '#EF4444', // Merah (untuk error)
+            // }
         },
     },
 
@@ -34,20 +34,17 @@ export default {
         require('daisyui'),
     ],
     daisyui: {
-        themes: ['light','dark',
+    themes: [
       {
-        dark: {
-          "primary": "#22D3EE", // Biru cerah
-          "secondary": "#3B82F6", // Biru muda
-          "accent": "#F59E0B", // Oranye cerah
-          "neutral": "#4B5563", // Abu-abu netral
-          "base-100": "#1f2937", // Latar belakang putih
-          "info": "#3B82F6", // Biru (untuk info)
-          "success": "#10B981", // Hijau (untuk sukses)
-          "warning": "#F59E0B", // Kuning (untuk peringatan)
-          "error": "#EF4444", // Merah (untuk error)
+        mytheme: {
+          "primary": "#60A5FA",
+          "secondary": "#083344",
+          "accent": "#37cdbe",
+          "neutral": "#3d4451",
+          "base-100": "#ffffff",
         },
       },
+      "dark",
     ],
-},
+  },
 };

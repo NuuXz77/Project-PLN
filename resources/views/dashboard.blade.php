@@ -1,6 +1,6 @@
 <x-layouts.app>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-secondary dark:text-gray-200 leading-tight">
+        <h2 class="font-semibold text-xl leading-tight">
             <x-mary-header title="Dashboard" separator />
         </h2>
     </x-slot>
@@ -63,6 +63,7 @@
                 </div>
             </div>
         </div>
+        <livewire:pelanggan.statiska-info/>
     </div>
 
     @if(session('status') == 'Login successful!')

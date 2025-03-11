@@ -1,14 +1,14 @@
 <div>
-    <x-mary-header title="Pelanggan" subtitle="Dashboard / Pelanggan" separator progress-indicator>
+    <x-mary-header title="Pelanggan" separator progress-indicator>
         <x-slot:middle class="!justify-end">
-            <x-mary-input icon="o-bolt" placeholder="Search..." />
+            <livewire:pelanggan.search-pelanggan name="search-pelanggan" />
         </x-slot:middle>
         <x-slot:actions>
-            <x-mary-button icon="o-funnel" />
+            <livewire:pelanggan.filter-pelanggan name="filterDraw" />
             <livewire:pelanggan.addpelanggan name="addModal" />
+
         </x-slot:actions>
     </x-mary-header>
-
     <div>
         <x-mary-header title="Pelanggan" subtitle="Dashboard / Pelanggan" separator progress-indicator>
             <x-slot:middle class="!justify-end">
@@ -43,25 +43,56 @@
             <!-- Kolom Aksi dengan Dropdown -->
             @scope('actions', $row)
             <x-mary-dropdown class="z-0" style="margin: 0; padding: 0;">
-                <x-slot:trigger>
-                    <x-mary-button icon="m-ellipsis-vertical" class="bg-transparent dark:bg-transparent border-none" />
-                </x-slot:trigger>
+                <x-mary-table class="bg-white dark:bg-base-100"
+                    :headers="$headers"
+                    :rows="$pelanggan"
+                    with-pagination
+                    per-page="perPage"
+                    :per-page-values="[3, 5, 10]">
+                    <!-- Custom Kolom Nomor -->
+                    @scope('row_number', $row)
+                    <span>{{ $row['number'] }}</span>
+                    @endscope
 
-                <x-mary-menu-item
-                    icon="o-eye"
-                    wire:click="showPelanggan({{ $row['id_pelanggan'] }})" />
-                <x-mary-menu-item
-                    icon="o-pencil-square"
-                    wire:click="editPelanggan({{ $row['id_pelanggan'] }})" />
-                <x-mary-menu-item
-                    icon="o-trash"
-                    wire:click="deletePelanggan({{ $row['id_pelanggan'] }})" />
-            </x-mary-dropdown>
-            @endscope
+                    @scope('actions', $row)
+                    <x-mary-dropdown>
+                        <x-slot:trigger>
+                            <x-mary-button icon="m-ellipsis-vertical" class="bg-transparent dark:bg-transparent border-none" />
+                        </x-slot:trigger>
 
-            <x-slot:empty>
-                <x-mary-icon name="o-cube" label="Data Pelanggan Tidak Tersedia." />
-            </x-slot:empty>
-        </x-mary-table>
+                        <x-mary-menu-item
+                            icon="o-eye"
+                            wire:click="showPelanggan({{ $row['id_pelanggan'] }})" />
+                        <x-mary-menu-item
+                            icon="o-pencil-square"
+                            wire:click="editPelanggan({{ $row['id_pelanggan'] }})" />
+                        <x-mary-menu-item
+                            icon="o-trash"
+                            wire:click="deletePelanggan({{ $row['id_pelanggan'] }})" />
+                        wire:click="$dispatch('showModal', { id: '{{ $row['ID_Pelanggan'] }}' })"
+                        />
+                        <x-mary-menu-item
+                            icon="o-pencil-square"
+                            wire:click="$dispatch('showEditModal', { id: '{{ $row['ID_Pelanggan'] }}' })" />
+                        <x-mary-menu-item
+                            icon="o-trash"
+                            wire:click="$dispatch('showDeleteModal', { id: '{{ $row['ID_Pelanggan'] }}',no: '{{ $row['No_Kontrol'] }}' })" />
+                    </x-mary-dropdown>
+                    @endscope
+                    <x-slot:empty>
+                        <x-mary-icon name="o-cube" label="Data Pelanggan Tidak Tersedia." />
+                    </x-slot:empty>
+                </x-mary-table>
     </div>
+</div>
+<!-- Letakkan komponen di luar -->
+
+
+<x-slot:empty>
+    <x-mary-icon name="o-cube" label="Data Pelanggan Tidak Tersedia." />
+</x-slot:empty>
+</x-mary-table>
+<livewire:pelanggan.showpelanggan name="viewModal" />
+<livewire:pelanggan.editpelanggan name="editModal" />
+<livewire:pelanggan.deletepelanggan name="deleteModal" />
 </div>

@@ -1,9 +1,14 @@
 <?php
 
 use Livewire\Volt\Component;
+use Livewire\WithPagination;
 use App\Models\Pelanggan;
+use App\Models\Tarif; // Tambahkan ini untuk mengakses model Tarif
+use Mary\Traits\Toast;
 
 new class extends Component {
+    use Toast;
+
     public $addModal = false;
     public $No_Kontrol;
     public $Nama;
@@ -12,37 +17,57 @@ new class extends Component {
     public $Email;
     public $Jenis_Plg;
 
+    // Tambahkan properti untuk menyimpan opsi Jenis_Plg dari tabel Tarif
+    public $jenisPlgOptions = [];
 
-    // Rules untuk validasi
+    // Method untuk mengambil data Jenis_Plg dari tabel Tarif
+    public function mount()
+    {
+        $this->jenisPlgOptions = Tarif::all('No_Tarif', 'Jenis_Plg')->toArray();
+        // dump($this->jenisPlgOptions);
+    }
+
+    public function refreshTable()
+    {
+        $this->dispatch('addSuccess');
+    }
+
     protected $rules = [
-        'No_Kontrol' => 'required|unique:pelanggan,No_Kontrol', // Sesuaikan dengan nama tabel dan kolom
         'Nama' => 'required|string|max:255',
-        'Alamat' => 'required|string|max:255',
-        'Telepon' => 'required|string|max:15',
-        'Email' => 'required|email|unique:pelanggan,Email', // Pastikan email unik
-        'Jenis_Plg' => 'required|in:1,2,3', // Sesuaikan dengan enum yang digunakan
+        'Alamat' => 'required|string|max:1000',
+        'Telepon' => 'required|numeric|min:10',
+        'Email' => 'required|email',
+        'Jenis_Plg' => 'required', // Validasi Jenis_Plg
     ];
 
-    // Pesan error kustom
-    protected $messages = [
-        'No_Kontrol.required' => 'No Kontrol wajib diisi.',
-        'No_Kontrol.unique' => 'No Kontrol sudah digunakan.',
-        'Nama.required' => 'Nama Pelanggan wajib diisi.',
-        'Alamat.required' => 'Alamat wajib diisi.',
-        'Telepon.required' => 'Telepon wajib diisi.',
-        'Email.required' => 'Email wajib diisi.',
-        'Email.unique' => 'Email sudah digunakan.',
-        'Jenis_Plg.required' => 'Jenis Pelanggan wajib dipilih.',
-        'Jenis_Plg.in' => 'Jenis Pelanggan tidak valid.',
-    ];
+    public function updatedTelepon()
+    {
+        $this->generateKodeKontrol();
+    }
 
-    // Method untuk menyimpan data
+    public function generateKodeKontrol()
+    {
+        if (empty($this->Telepon)) {
+            session()->flash('error', 'Nomor Telepon harus diisi terlebih dahulu.');
+            return;
+        }
+
+        $noTeleponLast6 = substr($this->Telepon, -6);
+
+        do {
+            $this->No_Kontrol = 'PLN-' . strtoupper($noTeleponLast6);  // Format: PLN-123456
+        } while (Pelanggan::where('No_Kontrol', $this->No_Kontrol)->exists());
+    }
+
     public function save()
     {
-        // Validasi data
         $this->validate();
 
-        // Simpan data ke database
+        if (empty($this->No_Kontrol)) {
+            session()->flash('error', 'Kode Kontrol tidak dapat kosong.');
+            return;
+        }
+
         Pelanggan::create([
             'No_Kontrol' => $this->No_Kontrol,
             'Nama' => $this->Nama,
@@ -52,59 +77,73 @@ new class extends Component {
             'Jenis_Plg' => $this->Jenis_Plg,
         ]);
 
-        // Reset form
-        $this->resetForm();
+        // Toast
+        $this->toast(
+            type: 'success',
+            title: 'It is done!',
+            description: null,
+            position: 'bottom-end',
+            icon: 'o-information-circle',
+            css: 'alert-info',
+            timeout: 3000,
+            redirectTo: null
+        );
 
-        // Tutup modal
+        $this->success('Data Berhasil Di Tambahkan !');
+        $this->resetForm();
+        $this->refreshTable();
         $this->addModal = false;
 
-        // Beri feedback ke user
         session()->flash('message', 'Pelanggan berhasil ditambahkan!');
     }
 
-    // Method untuk reset form
     public function resetForm()
     {
         $this->reset(['No_Kontrol', 'Nama', 'Alamat', 'Telepon', 'Email', 'Jenis_Plg']);
     }
-}; ?>
 
+    public function openModal()
+    {
+        $this->addModal = true;
+    }
+};
+?>
 
 <div>
     <x-mary-modal wire:model="addModal" class="backdrop-blur w-1/2">
+    <x-mary-modal wire:model="addModal" class="backdrop-blur" box-class="max-w-4xl w-100">
         <x-mary-header title="Tambah Pelanggan" subtitle="Isikan data yang benar!" separator />
-        <x-mary-form wire:submit="save" no-separator>
+        <x-mary-form wire:submit.prevent="save" no-separator>
             <div class="grid grid-cols-12 gap-4">
+                <!-- No Kontrol otomatis -->
                 <div class="col-span-6">
-                    <x-mary-input label="No Kontrol" wire:model="No_Kontrol" />
+                    <x-mary-input label="No Kontrol" wire:model="No_Kontrol" readonly class="text-cyan-50"/>
                 </div>
                 <div class="col-span-6">
-                    <x-mary-input label="Nama Pelanggan" wire:model="Nama" />
+                    <x-mary-input label="Nama Pelanggan" wire:model="Nama" class="text-cyan-50"  />
                 </div>
             </div>
+
             <div class="grid grid-cols-12 gap-4">
                 <div class="col-span-4">
-                    <div class="col-span-6">
-                        <x-mary-select
-                            label="Jenis Pelanggan"
-                            wire:model="Jenis_Plg"
-                            :options="[
-                    ['id' => '1', 'name' => 'Bisnis'],
-                    ['id' => '2', 'name' => 'Rumah Tangga'],
-                    ['id' => '3', 'name' => 'Industri'],
-                ]"
-                            option-value="id"
-                            option-label="name"
-                            placeholder="Pilih Jenis Pelanggan" />
-                    </div>
+                    <x-mary-select
+                        label="Jenis Pelanggan"
+                        wire:model="Jenis_Plg"
+                        :options="$this->jenisPlgOptions"
+                        option-value="No_Tarif"
+                        option-label="Jenis_Plg"
+                        placeholder="Pilih Jenis Pelanggan"
+                        class="text-cyan-50"
+                    />
                 </div>
                 <div class="col-span-4">
-                    <x-mary-input label="Email" wire:model="Email" />
+                    <x-mary-input label="Email" wire:model="Email" class="text-cyan-50" />
                 </div>
                 <div class="col-span-4">
-                    <x-mary-input label="Telepon" wire:model="Telepon" />
+                    <x-mary-input label="Telepon" wire:model="Telepon" class="text-cyan-50" />
                 </div>
             </div>
+
             <div class="grid grid-cols-12 gap-4">
                 <div class="col-span-12 mt-3">
                     <x-mary-textarea
@@ -112,9 +151,11 @@ new class extends Component {
                         placeholder="Your Address ..."
                         hint="Max 1000 chars"
                         rows="3"
-                        inline />
+                        inline class="text-cyan-50"
+                    />
                 </div>
             </div>
+
             <x-slot:actions>
                 <x-mary-button label="Cancel" @click="$wire.addModal = false" />
                 <x-mary-button label="Save" class="btn-primary" type="submit" spinner="save" />
@@ -123,5 +164,5 @@ new class extends Component {
     </x-mary-modal>
 
     <!-- Tombol untuk membuka modal -->
-    <x-mary-button icon="o-plus" class="btn-primary" @click="$wire.addModal = true" />
+    <x-mary-button icon="o-plus" class="btn-primary" @click="$wire.openModal()" />
 </div>
