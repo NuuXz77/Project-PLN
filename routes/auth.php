@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
+// Route untuk pengguna yang belum login (guest)
 Route::middleware('guest')->group(function () {
     Volt::route('register', 'pages.auth.register')
         ->name('register');
@@ -18,6 +19,7 @@ Route::middleware('guest')->group(function () {
         ->name('password.reset');
 });
 
+// Route untuk pengguna yang sudah login (auth)
 Route::middleware('auth')->group(function () {
     Volt::route('verify-email', 'pages.auth.verify-email')
         ->name('verification.notice');
@@ -29,3 +31,7 @@ Route::middleware('auth')->group(function () {
     Volt::route('confirm-password', 'pages.auth.confirm-password')
         ->name('password.confirm');
 });
+
+// Route yang dapat diakses oleh semua pengguna (tanpa middleware)
+Volt::route('syarat-dan-ketentuan', 'pages.auth.terms')
+    ->name('terms');

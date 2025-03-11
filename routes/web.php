@@ -12,9 +12,9 @@ Route::view('dashboard', 'dashboard')
 Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
-    
+
 Route::view('pelanggan', 'pelanggan')
     ->middleware(['auth'])
     ->name('pelanggan');
-    
-require __DIR__.'/auth.php';
+
+require __DIR__ . '/auth.php';
