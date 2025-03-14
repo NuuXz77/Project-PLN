@@ -44,6 +44,8 @@ class TabelPelanggan extends Component
             ['key' => 'Telepon', 'label' => 'Telepon'],
             ['key' => 'Email', 'label' => 'Email'],
             ['key' => 'Jenis_Plg', 'label' => 'Jenis Pelanggan'],
+            // ['key' => 'Daya', 'label' => 'Daya'],
+            ['key' => 'Tarif', 'label' => 'Tabel Tarif'],
         ];
         // Ambil data pelanggan dengan pencarian dan pagination
         $pelanggan = Pelanggan::query()
