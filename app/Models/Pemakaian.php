@@ -25,6 +25,6 @@ class Pemakaian extends Model
     // Relasi ke tabel Pelanggan
     public function pelanggan()
     {
-        return $this->belongsTo(Pelanggan::class, 'no_kontrol', 'no_kontrol');
+        return $this->belongsTo(Pelanggan::class, 'No_Kontrol', 'No_Kontrol');
     }
 }

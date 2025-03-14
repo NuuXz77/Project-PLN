@@ -65,4 +65,10 @@ class Tarif extends Model
      * @var bool
      */
     public $timestamps = true;
+
+    // Di dalam model Tarif
+    public function pelanggan()
+    {
+        return $this->hasMany(Pelanggan::class, 'Jenis_Plg', 'Jenis_Plg');
+    }
 }
