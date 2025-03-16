@@ -13,7 +13,7 @@ new class extends Component {
 
 <div>
     <x-mary-input 
-        wire:model.live="search"
+        wire:model.debounce.500ms="search"
         icon="o-bolt"
         placeholder="Search..." 
     />

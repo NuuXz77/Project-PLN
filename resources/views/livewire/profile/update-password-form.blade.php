@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Validation\ValidationException;
 use Livewire\Volt\Component;
-
 new class extends Component
 {
     public string $current_password = '';
@@ -50,13 +49,18 @@ new class extends Component
     </header>
 
     <form wire:submit="updatePassword" class="mt-6 space-y-6">
-        <x-mary-password label="Password saat ini" id="update_password_current_password" wire:model="current_password" class="block mt-1 w-full pr-10 !text-black" type="password" name="password" required autocomplete="current-password" right />
+        <x-mary-password label="Password saat ini" id="update_password_current_password" wire:model="current_password"
+            class="block mt-1 w-full pr-10 !text-black" type="password" name="password" required
+            autocomplete="current-password" right />
         <x-input-error :messages="$errors->get('current_password')" class="mt-2" />
 
-        <x-mary-password label="Password Baru" wire:model="password" id="update_password_password" name="password" type="password" class="mt-1 block w-full !text-black" required autocomplete="new-password" right />
+        <x-mary-password label="Password Baru" wire:model="password" id="update_password_password" name="password"
+            type="password" class="mt-1 block w-full !text-black" required autocomplete="new-password" right />
         <x-input-error :messages="$errors->get('password')" class="mt-2" />
 
-        <x-mary-password label="Konfirmasi Password Baru" wire:model="password_confirmation" id="update_password_password_confirmation" name="password_confirmation" type="password" class="mt-1 block w-full !text-black" required autocomplete="new-password" right />
+        <x-mary-password label="Konfirmasi Password Baru" wire:model="password_confirmation"
+            id="update_password_password_confirmation" name="password_confirmation" type="password"
+            class="mt-1 block w-full !text-black" required autocomplete="new-password" right />
         <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
 
         <div class="flex items-center gap-4">

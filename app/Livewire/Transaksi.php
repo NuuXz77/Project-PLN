@@ -8,6 +8,6 @@ class Transaksi extends Component
 {
     public function render()
     {
-        return view('livewire.transaksi');
+        return view('livewire.pelanggan.transaksi');
     }
 }

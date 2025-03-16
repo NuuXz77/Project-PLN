@@ -9,8 +9,8 @@
         "php": "^8.2",
         "laravel/framework": "^11.31",
         "laravel/tinker": "^2.9",
-        "livewire/livewire": "^3.5",
-        "livewire/volt": "^1.6",
+        "livewire/livewire": "^3.6",
+        "livewire/volt": "^1.7",
         "robsontenorio/mary": "^1.41"
     },
     "require-dev": {
