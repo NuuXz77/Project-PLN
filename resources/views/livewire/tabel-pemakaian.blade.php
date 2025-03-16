@@ -16,58 +16,62 @@
         per-page="perPage"
         :per-page-values="[5, 10, 20]"
         >
-        <!-- Custom Kolom Nomor -->
-        @scope('row_number', $row)
-            <span>{{ $row['number'] }}</span>
+        {{-- <!-- Custom Kolom Nomor -->
+        @scope('row_number', $pemakaian)
+            <span>{{ $pemakaian['number'] }}</span>
         @endscope
 
         <!-- Kolom No Kontrol -->
-        @scope('No_Kontrol', $row)
-            <span>{{ $row->pelanggan->No_Kontrol }}</span>
+        @scope('No_Kontrol', $pemakaian)
+            <span>{{ $pemakaian->pelanggan->No_Kontrol }}</span>
         @endscope
 
         <!-- Kolom Nama Pelanggan -->
-        @scope('Nama', $row)
-            <span>{{ $row->pelanggan->Nama }}</span>
+        @scope('Nama', $pemakaian)
+            <span>{{ $pemakaian->pelanggan->Nama }}</span>
         @endscope
 
         <!-- Kolom Tanggal Catat -->
-        @scope('TanggalCatat', $row)
-            <span>{{ $row->TanggalCatat }}</span>
+        @scope('TanggalCatat', $pemakaian)
+            <span>{{ $pemakaian->TanggalCatat }}</span>
         @endscope
 
         <!-- Kolom Meter Awal -->
-        @scope('MeterAwal', $row)
-            <span>{{ $row->MeterAwal }}</span>
+        @scope('MeterAwal', $pemakaian)
+            <span>{{ $pemakaian->MeterAwal }}</span>
         @endscope
 
         <!-- Kolom Meter Akhir -->
-        @scope('MeterAkhir', $row)
-            <span>{{ $row->MeterAkhir }}</span>
+        @scope('MeterAkhir', $pemakaian)
+            <span>{{ $pemakaian->MeterAkhir }}</span>
         @endscope
 
         <!-- Kolom Jumlah Pakai -->
-        @scope('JumlahPakai', $row)
-            <span>{{ $row->JumlahPakai }}</span>
+        @scope('JumlahPakai', $pemakaian)
+            <span>{{ $pemakaian->JumlahPakai }}</span>
         @endscope
 
         <!-- Kolom Biaya Beban -->
-        @scope('BiayaBebanPemakai', $row)
-            <span>{{ number_format($row->BiayaBebanPemakai) }}</span>
+        @scope('BiayaBebanPemakai', $pemakaian)
+            <span>{{ number_format($pemakaian->BiayaBebanPemakai) }}</span>
         @endscope
 
         <!-- Kolom Biaya Pemakaian -->
-        @scope('BiayaPemakaian', $row)
-            <span>{{ number_format($row->BiayaPemakaian) }}</span>
-        @endscope
+        @scope('BiayaPemakaian', $pemakaian)
+            <span>{{ number_format($pemakaian->BiayaPemakaian) }}</span>
+        @endscope --}}
 
         <!-- Kolom Status Pembayaran -->
-        @scope('StatusPembayaran', $row)
-            <span>{{ $row->StatusPembayaran }}</span>
+        @scope('cell_StatusPembayaran', $pemakaian)
+            @if($pemakaian->StatusPembayaran == 'Belum Lunas')
+                <x-mary-badge :value="$pemakaian->StatusPembayaran" class="badge-error" />
+            @else
+                <x-mary-badge :value="$pemakaian->StatusPembayaran" class="badge-success" />
+            @endif
         @endscope
 
         <!-- Kolom Aksi -->
-        @scope('actions', $row)
+        @scope('actions', $pemakaian)
             <x-mary-dropdown>
                 <x-slot:trigger>
                     <x-mary-button icon="m-ellipsis-vertical" class="bg-transparent border-none" />
@@ -75,15 +79,15 @@
 
                 <x-mary-menu-item
                     icon="o-eye"
-                    wire:click="$dispatch('showModal', { id: '{{ $row->ID_Pemakaian }}' })"
+                    wire:click="$dispatch('showModal', { id: '{{ $pemakaian->ID_Pemakaian }}' })"
                 />
                 <x-mary-menu-item
                     icon="o-pencil-square"
-                    wire:click="$dispatch('showEditModal', { id: '{{ $row->ID_Pemakaian }}' })"
+                    wire:click="$dispatch('showEditModal', { id: '{{ $pemakaian->ID_Pemakaian }}' })"
                 />
                 <x-mary-menu-item
                     icon="o-trash"
-                    wire:click="$dispatch('showDeleteModal', { id: '{{ $row->ID_Pemakaian }}' })"
+                    wire:click="$dispatch('showDeleteModal', { id: '{{ $pemakaian->ID_Pemakaian }}' })"
                 />
             </x-mary-dropdown>
         @endscope

@@ -3,8 +3,11 @@
 use Livewire\Volt\Component;
 use App\Models\Pelanggan;
 use App\Models\Pemakaian;
+use App\Models\Tarif;
+use Mary\Traits\Toast;
 
 new class extends Component {
+    use Toast;
     public $addModal = false;
     public $No_Pemakaian;
     public $No_Kontrol;
@@ -12,11 +15,12 @@ new class extends Component {
     public $MeterAwal;
     public $MeterAkhir;
     public $JumlahPakai;
-    public $BiayaBebanPemakai;
-    public $BiayaPemakaian;
+    public $BiayaBebanPemakaian = 0;
+    public $BiayaPemakaian = 0;
     public $StatusPembayaran;
     public $pelangganList = [];
-
+    public $tarif;
+    public $jenisPelanggan;
 
     public function refreshTable()
     {
@@ -25,20 +29,48 @@ new class extends Component {
 
     public function mount()
     {
-        $this->pelangganList = Pelanggan::all(['No_Kontrol', 'Nama', 'created_at'])->toArray();
+        $this->pelangganList = Pelanggan::all(['No_Kontrol', 'Nama', 'Jenis_Plg', 'created_at'])->toArray();
+        $this->tarif = Tarif::all()->keyBy('Jenis_Plg')->toArray();
     }
 
-    protected $rules = [
-        'No_Pemakaian' =>'required|unique:pemakaian,No_Pemakaian',
-        'No_Kontrol' => 'required|exists:pelanggan,No_Kontrol',
-        'TanggalCatat' => 'required|date',
-        'MeterAwal' => 'required|numeric',
-        'MeterAkhir' => 'required|numeric|gte:MeterAwal',
-        'JumlahPakai' => 'required|numeric',
-        'BiayaBebanPemakai' => 'required|numeric',
-        'BiayaPemakaian' => 'required|numeric',
-        'StatusPembayaran' => 'required|in:Lunas,Belum Lunas',
-    ];
+    public function updatedNoKontrol($value)
+    {
+        $this->generateNoPemakaian();
+
+        $pelanggan = Pelanggan::where('No_Kontrol', $value)->first();
+
+        if ($pelanggan) {
+            $this->jenisPelanggan = $pelanggan->Jenis_Plg;
+            $this->calculateBiayaPemakaian();
+        }
+    }
+
+    public function updatedMeterAwal()
+    {
+        $this->calculateJumlahPakai();
+    }
+
+    public function updatedMeterAkhir()
+    {
+        $this->calculateJumlahPakai();
+    }
+
+    public function calculateJumlahPakai()
+    {
+        if (is_numeric($this->MeterAwal) && is_numeric($this->MeterAkhir) && $this->MeterAkhir >= $this->MeterAwal) {
+            $this->JumlahPakai = $this->MeterAkhir - $this->MeterAwal;
+            $this->calculateBiayaPemakaian();
+        }
+    }
+
+    public function calculateBiayaPemakaian()
+    {
+        if ($this->JumlahPakai && isset($this->tarif[$this->jenisPelanggan])) {
+            $tarif = $this->tarif[$this->jenisPelanggan];
+            $this->BiayaPemakaian = $this->JumlahPakai * $tarif['TarifKWH'];
+            $this->BiayaBebanPemakaian = $tarif['BiayaBeban'];
+        }
+    }
 
     public function generateNoPemakaian()
     {
@@ -55,10 +87,17 @@ new class extends Component {
 
     public function save()
     {
-        // dd($this->No_Pemakaian);
-        $this->validate();
-
-        $this->generateNoPemakaian();
+        $this->validate([
+            'No_Pemakaian' => 'required|unique:pemakaian,No_Pemakaian',
+            'No_Kontrol' => 'required|exists:pelanggan,No_Kontrol',
+            'TanggalCatat' => 'required|date',
+            'MeterAwal' => 'required|numeric',
+            'MeterAkhir' => 'required|numeric|gte:MeterAwal',
+            'JumlahPakai' => 'required|numeric',
+            'BiayaBebanPemakaian' => 'required|numeric',
+            'BiayaPemakaian' => 'required|numeric',
+            'StatusPembayaran' => 'required|in:Lunas,Belum Lunas',
+        ]);
 
         Pemakaian::create([
             'No_Pemakaian' => $this->No_Pemakaian,
@@ -67,10 +106,21 @@ new class extends Component {
             'MeterAwal' => $this->MeterAwal,
             'MeterAkhir' => $this->MeterAkhir,
             'JumlahPakai' => $this->JumlahPakai,
-            'BiayaBebanPemakaian' => $this->BiayaBebanPemakai,
+            'BiayaBebanPemakaian' => $this->BiayaBebanPemakaian,
             'BiayaPemakaian' => $this->BiayaPemakaian,
             'StatusPembayaran' => $this->StatusPembayaran,
         ]);
+        // Toast sukses
+        $this->toast(
+            type: 'success',
+            title: 'It is done!',
+            description: 'Data Pemakaian Berhasil Di Tambahkan!',
+            position: 'toast-top toast-end',
+            icon: 'o-information-circle',
+            css: 'alert-info',
+            timeout: 3000,
+            redirectTo: null
+        );
 
         $this->resetForm();
         $this->refreshTable();
@@ -80,7 +130,7 @@ new class extends Component {
 
     public function resetForm()
     {
-        $this->reset(['No_Pemakaian', 'No_Kontrol', 'TanggalCatat', 'MeterAwal', 'MeterAkhir', 'JumlahPakai', 'BiayaBebanPemakai', 'BiayaPemakaian', 'StatusPembayaran']);
+        $this->reset(['No_Pemakaian', 'No_Kontrol', 'TanggalCatat', 'MeterAwal', 'MeterAkhir', 'JumlahPakai', 'BiayaBebanPemakaian', 'BiayaPemakaian', 'StatusPembayaran']);
     }
 };
 ?>
@@ -113,23 +163,23 @@ new class extends Component {
                 </div>
 
                 <div class="col-span-6">
-                    <x-mary-input label="Meter Awal" type="number" min=0 wire:model="MeterAwal" />
+                    <x-mary-input label="Meter Awal" type="number" min=0 wire:model.live="MeterAwal" />
                 </div>
 
                 <div class="col-span-6">
-                    <x-mary-input label="Meter Akhir" type="number" min=0 wire:model="MeterAkhir" />
+                    <x-mary-input label="Meter Akhir" type="number" min=0 wire:model.live="MeterAkhir" />
                 </div>
 
                 <div class="col-span-6">
-                    <x-mary-input label="Jumlah Pakai" type="number" min=0 wire:model="JumlahPakai" />
+                    <x-mary-input label="Jumlah Pakai" type="number" min=0 wire:model="JumlahPakai" readonly />
                 </div>
 
                 <div class="col-span-6">
-                    <x-mary-input label="Biaya Beban Pemakai" type="number" min=0 wire:model="BiayaBebanPemakai" />
+                    <x-mary-input label="Biaya Beban Pemakai" type="number" min=0 wire:model="BiayaBebanPemakaian" readonly />
                 </div>
 
                 <div class="col-span-6">
-                    <x-mary-input label="Biaya Pemakaian" type="number" min=0 wire:model="BiayaPemakaian" />
+                    <x-mary-input label="Biaya Pemakaian" type="number" min=0 wire:model="BiayaPemakaian" readonly />
                 </div>
 
                 <div class="col-span-6">

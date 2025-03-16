@@ -27,7 +27,7 @@ new class extends Component {
     // Method untuk mengambil data Jenis_Plg dari tabel Tarif
     public function mount()
     {
-        $this->jenisPlgOptions = Tarif::all('No_Tarif', 'Jenis_Plg')->toArray();
+        $this->jenisPlgOptions = Tarif::all()->toArray();
         // dump($this->jenisPlgOptions);
     }
 
@@ -133,7 +133,7 @@ new class extends Component {
                         label="Jenis Pelanggan"
                         wire:model="Jenis_Plg"
                         :options="$this->jenisPlgOptions"
-                        option-value="No_Tarif"
+                        option-value="Jenis_Plg"
                         option-label="Jenis_Plg"
                         placeholder="Pilih Jenis Pelanggan"
                         class="text-black" />

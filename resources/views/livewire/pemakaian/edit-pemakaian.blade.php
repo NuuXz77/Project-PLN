@@ -4,13 +4,15 @@ namespace App\Livewire;
 
 use Livewire\Volt\Component;
 use App\Models\Pemakaian;
+use App\Models\Pelanggan;
+use App\Models\Tarif;
 use Mary\Traits\Toast;
 
 new class extends Component {
     use Toast;
 
-    public $editModal = false; // Modal untuk mengedit data
-    public $pemakaian_id; // ID pemakaian yang akan diedit
+    public $editModal = false;
+    public $pemakaian_id;
     public $No_Pemakaian;
     public $No_Kontrol;
     public $TanggalCatat;
@@ -20,18 +22,23 @@ new class extends Component {
     public $BiayaBebanPemakaian;
     public $BiayaPemakaian;
     public $StatusPembayaran;
+    public $pelangganList = [];
+    public $tarif;
+    public $jenisPelanggan;
 
-    // Menerima event dari $dispatch
     protected $listeners = ['showEditModal' => 'openModal'];
 
-    // Method untuk membuka modal dan mengambil data berdasarkan pemakaian_id
+    public function mount()
+    {
+        $this->pelangganList = Pelanggan::all(['No_Kontrol', 'Nama', 'Jenis_Plg', 'created_at'])->toArray();
+        $this->tarif = Tarif::all()->keyBy('Jenis_Plg')->toArray();
+    }
+
     public function openModal($id)
     {
-        // Ambil data pemakaian berdasarkan ID
         $pemakaian = Pemakaian::find($id);
 
         if ($pemakaian) {
-            // Isi properti dengan data yang ditemukan
             $this->pemakaian_id = $pemakaian->ID_Pemakaian;
             $this->No_Pemakaian = $pemakaian->No_Pemakaian;
             $this->No_Kontrol = $pemakaian->No_kontrol;
@@ -43,10 +50,13 @@ new class extends Component {
             $this->BiayaPemakaian = $pemakaian->BiayaPemakaian;
             $this->StatusPembayaran = $pemakaian->StatusPembayaran;
 
-            // Buka modal
+            $pelanggan = Pelanggan::where('No_Kontrol', $this->No_Kontrol)->first();
+            if ($pelanggan) {
+                $this->jenisPelanggan = $pelanggan->Jenis_Plg;
+            }
+
             $this->editModal = true;
         } else {
-            // Beri feedback jika data tidak ditemukan
             $this->toast(
                 type: 'error',
                 title: 'Error!',
@@ -60,41 +70,66 @@ new class extends Component {
         }
     }
 
-    // Method untuk menutup modal
     public function closeModal()
     {
         $this->editModal = false;
         $this->resetForm();
     }
 
-    // Method untuk reset form
     public function resetForm()
     {
-        $this->reset(['pemakaian_id', 'No_Pemakaian', 'No_Kontrol', 'TanggalCatat', 'MeterAwal', 'MeterAkhir', 'JumlahPakai', 'BiayaBebanPemakaian', 'BiayaPemakaian', 'StatusPembayaran']);
+        $this->reset([
+            'pemakaian_id', 'No_Pemakaian', 'No_Kontrol', 'TanggalCatat', 
+            'MeterAwal', 'MeterAkhir', 'JumlahPakai', 
+            'BiayaBebanPemakaian', 'BiayaPemakaian', 'StatusPembayaran'
+        ]);
     }
 
-    // Method untuk menyimpan perubahan data pemakaian
+    public function updatedMeterAwal()
+    {
+        $this->calculateJumlahPakai();
+    }
+
+    public function updatedMeterAkhir()
+    {
+        $this->calculateJumlahPakai();
+    }
+
+    public function calculateJumlahPakai()
+    {
+        if (is_numeric($this->MeterAwal) && is_numeric($this->MeterAkhir) && $this->MeterAkhir >= $this->MeterAwal) {
+            $this->JumlahPakai = $this->MeterAkhir - $this->MeterAwal;
+            $this->calculateBiayaPemakaian();
+        }
+    }
+
+    public function calculateBiayaPemakaian()
+    {
+        if ($this->JumlahPakai && isset($this->tarif[$this->jenisPelanggan])) {
+            $tarif = $this->tarif[$this->jenisPelanggan];
+            $this->BiayaPemakaian = $this->JumlahPakai * $tarif['TarifKWH'];
+            $this->BiayaBebanPemakaian = $tarif['BiayaBeban'];
+        }
+    }
+
     public function save()
     {
-        // Validasi data
         $this->validate([
             'No_Pemakaian' => 'required|string',
             'No_Kontrol' => 'required|string',
             'TanggalCatat' => 'required|date',
             'MeterAwal' => 'required|numeric',
-            'MeterAkhir' => 'required|numeric',
+            'MeterAkhir' => 'required|numeric|gte:MeterAwal',
             'JumlahPakai' => 'required|numeric',
             'BiayaBebanPemakaian' => 'required|numeric',
             'BiayaPemakaian' => 'required|numeric',
-            'StatusPembayaran' => 'required|string',
+            'StatusPembayaran' => 'required|in:Lunas,Belum Lunas',
         ]);
 
         try {
-            // Cari pemakaian berdasarkan ID
             $pemakaian = Pemakaian::find($this->pemakaian_id);
 
             if ($pemakaian) {
-                // Update data pemakaian
                 $pemakaian->update([
                     'No_Pemakaian' => $this->No_Pemakaian,
                     'No_kontrol' => $this->No_Kontrol,
@@ -107,7 +142,6 @@ new class extends Component {
                     'StatusPembayaran' => $this->StatusPembayaran,
                 ]);
 
-                // Toast sukses
                 $this->toast(
                     type: 'success',
                     title: 'It is done!',
@@ -122,7 +156,6 @@ new class extends Component {
                 $this->dispatch('editSuccess');
                 $this->closeModal();
             } else {
-                // Toast error jika pemakaian tidak ditemukan
                 $this->toast(
                     type: 'error',
                     title: 'Error!',
@@ -135,7 +168,6 @@ new class extends Component {
                 );
             }
         } catch (\Exception $e) {
-            // Toast error jika terjadi exception
             $this->toast(
                 type: 'error',
                 title: 'Error!',
@@ -169,15 +201,25 @@ new class extends Component {
                     <x-mary-input label="Tanggal Catat" wire:model="TanggalCatat" type="date" />
                 </div>
                 <div class="col-span-6">
-                    <x-mary-input label="Status Pembayaran" wire:model="StatusPembayaran" />
+                    <x-mary-select 
+                        label="Status Pembayaran"
+                        wire:model="StatusPembayaran"
+                        :options="[
+                            ['id' => 'Lunas', 'name' => 'Lunas'],
+                            ['id' => 'Belum Lunas', 'name' => 'Belum Lunas']
+                        ]"
+                        option-value="id"
+                        option-label="name"
+                        placeholder="Pilih Status"
+                    />
                 </div>
             </div>
             <div class="grid grid-cols-12 gap-4">
                 <div class="col-span-4">
-                    <x-mary-input label="Meter Awal" wire:model="MeterAwal" type="number" />
+                    <x-mary-input label="Meter Awal" wire:model.live="MeterAwal" type="number" />
                 </div>
                 <div class="col-span-4">
-                    <x-mary-input label="Meter Akhir" wire:model="MeterAkhir" type="number" />
+                    <x-mary-input label="Meter Akhir" wire:model.live="MeterAkhir" type="number" />
                 </div>
                 <div class="col-span-4">
                     <x-mary-input label="Jumlah Pakai" wire:model="JumlahPakai" type="number" readonly />
@@ -185,10 +227,10 @@ new class extends Component {
             </div>
             <div class="grid grid-cols-12 gap-4">
                 <div class="col-span-6">
-                    <x-mary-input label="Biaya Beban" wire:model="BiayaBebanPemakaian" type="number" />
+                    <x-mary-input label="Biaya Beban" wire:model="BiayaBebanPemakaian" type="number" readonly />
                 </div>
                 <div class="col-span-6">
-                    <x-mary-input label="Biaya Pemakaian" wire:model="BiayaPemakaian" type="number" />
+                    <x-mary-input label="Biaya Pemakaian" wire:model="BiayaPemakaian" type="number" readonly />
                 </div>
             </div>
             <x-slot:actions>
