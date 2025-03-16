@@ -163,23 +163,23 @@ new class extends Component {
                 </div>
 
                 <div class="col-span-6">
-                    <x-mary-input label="Meter Awal" type="number" min=0 wire:model.live="MeterAwal" />
+                    <x-mary-input label="Meter Awal" type="number" wire:model.live="MeterAwal" />
                 </div>
 
                 <div class="col-span-6">
-                    <x-mary-input label="Meter Akhir" type="number" min=0 wire:model.live="MeterAkhir" />
+                    <x-mary-input label="Meter Akhir" type="number" wire:model.live="MeterAkhir" />
                 </div>
 
                 <div class="col-span-6">
-                    <x-mary-input label="Jumlah Pakai" type="number" min=0 wire:model="JumlahPakai" readonly />
+                    <x-mary-input label="Jumlah Pakai" type="number" wire:model="JumlahPakai" readonly />
                 </div>
 
                 <div class="col-span-6">
-                    <x-mary-input label="Biaya Beban Pemakai" type="number" min=0 wire:model="BiayaBebanPemakaian" readonly />
+                    <x-mary-input label="Biaya Beban Pemakai" type="number" wire:model="BiayaBebanPemakaian" readonly />
                 </div>
 
                 <div class="col-span-6">
-                    <x-mary-input label="Biaya Pemakaian" type="number" min=0 wire:model="BiayaPemakaian" readonly />
+                    <x-mary-input label="Biaya Pemakaian" type="number" wire:model="BiayaPemakaian" readonly />
                 </div>
 
                 <div class="col-span-6">

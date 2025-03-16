@@ -40,9 +40,9 @@ class TabelPelanggan extends Component
             ['key' => 'No_Kontrol', 'label' => 'No Kontrol'],
             ['key' => 'Nama', 'label' => 'Nama Pelanggan'],
             ['key' => 'Alamat', 'label' => 'Alamat'],
-            ['key' => 'Telepon', 'label' => 'Telepon'],
-            ['key' => 'Email', 'label' => 'Email'],
-            ['key' => 'Jenis_Plg', 'label' => 'Jenis Pelanggan'],
+            ['key' => 'informasi_gabungan', 'label' => 'Informasi', 'class' => 'text-left'],
+            ['key' => 'actions', 'label' => 'Aksi', 'class' => 'text-center'],
+            ['key' => 'Tarif', 'label' => 'Tabel Tarif']
         ];
 
         // Ambil data pelanggan dengan pencarian dan pagination
