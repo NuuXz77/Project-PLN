@@ -17,6 +17,9 @@ Route::middleware('guest')->group(function () {
 
     Volt::route('reset-password/{token}', 'pages.auth.reset-password')
         ->name('password.reset');
+
+    Volt::route('syarat-dan-ketentuan', 'layout.isi_Terms')
+        ->name('terms');
 });
 
 // Route untuk pengguna yang sudah login (auth)
@@ -32,6 +35,3 @@ Route::middleware('auth')->group(function () {
         ->name('password.confirm');
 });
 
-// Route yang dapat diakses oleh semua pengguna (tanpa middleware)
-Volt::route('syarat-dan-ketentuan', 'pages.auth.terms')
-    ->name('terms');

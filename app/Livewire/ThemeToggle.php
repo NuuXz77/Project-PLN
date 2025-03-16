@@ -11,8 +11,8 @@ class ThemeToggle extends Component
     public function toggleTheme()
     {
         $this->theme = ($this->theme === 'light') ? 'dark' : 'light';
-        // Simpan tema di session atau local storage (opsional)
         session(['theme' => $this->theme]);
+        $this->dispatchBrowserEvent('theme-changed', ['theme' => $this->theme]);
     }
 
     public function render()

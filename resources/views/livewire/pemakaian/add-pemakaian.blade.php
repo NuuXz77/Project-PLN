@@ -18,7 +18,7 @@ new class extends Component {
     public $pelangganList = [];
 
 
-   public function refreshTable()
+    public function refreshTable()
     {
         $this->dispatch('addSuccess');
     }
@@ -113,23 +113,23 @@ new class extends Component {
                 </div>
 
                 <div class="col-span-6">
-                    <x-mary-input label="Meter Awal" type="number" wire:model="MeterAwal" />
+                    <x-mary-input label="Meter Awal" type="number" min=0 wire:model="MeterAwal" />
                 </div>
 
                 <div class="col-span-6">
-                    <x-mary-input label="Meter Akhir" type="number" wire:model="MeterAkhir" />
+                    <x-mary-input label="Meter Akhir" type="number" min=0 wire:model="MeterAkhir" />
                 </div>
 
                 <div class="col-span-6">
-                    <x-mary-input label="Jumlah Pakai" type="number" wire:model="JumlahPakai" />
+                    <x-mary-input label="Jumlah Pakai" type="number" min=0 wire:model="JumlahPakai" />
                 </div>
 
                 <div class="col-span-6">
-                    <x-mary-input label="Biaya Beban Pemakai" type="number" wire:model="BiayaBebanPemakai" />
+                    <x-mary-input label="Biaya Beban Pemakai" type="number" min=0 wire:model="BiayaBebanPemakai" />
                 </div>
 
                 <div class="col-span-6">
-                    <x-mary-input label="Biaya Pemakaian" type="number" wire:model="BiayaPemakaian" />
+                    <x-mary-input label="Biaya Pemakaian" type="number" min=0 wire:model="BiayaPemakaian" />
                 </div>
 
                 <div class="col-span-6">

@@ -18,7 +18,11 @@ new class extends Component {
     public $Jenis_Plg;
 
     // Tambahkan properti untuk menyimpan opsi Jenis_Plg dari tabel Tarif
-    public $jenisPlgOptions = [];
+    public $jenisPlgOptions = [
+        ['No_Tarif' => 1, 'Jenis_Plg' => 'Rumah Tangga'],
+        ['No_Tarif' => 2, 'Jenis_Plg' => 'Bisnis'],
+        ['No_Tarif' => 3, 'Jenis_Plg' => 'Industri'],
+    ];
 
     // Method untuk mengambil data Jenis_Plg dari tabel Tarif
     public function mount()
@@ -80,7 +84,7 @@ new class extends Component {
         // Toast
         $this->toast(
             type: 'success',
-            title: 'It is done!',
+            title: 'Success',
             description: null,
             position: 'bottom-end',
             icon: 'o-information-circle',
@@ -110,17 +114,16 @@ new class extends Component {
 ?>
 
 <div>
-    <x-mary-modal wire:model="addModal" class="backdrop-blur w-1/2">
     <x-mary-modal wire:model="addModal" class="backdrop-blur" box-class="max-w-4xl w-100">
         <x-mary-header title="Tambah Pelanggan" subtitle="Isikan data yang benar!" separator />
         <x-mary-form wire:submit.prevent="save" no-separator>
             <div class="grid grid-cols-12 gap-4">
                 <!-- No Kontrol otomatis -->
                 <div class="col-span-6">
-                    <x-mary-input label="No Kontrol" wire:model="No_Kontrol" readonly class="text-cyan-50"/>
+                    <x-mary-input label="No Kontrol" wire:model="No_Kontrol" readonly class="text-black" />
                 </div>
                 <div class="col-span-6">
-                    <x-mary-input label="Nama Pelanggan" wire:model="Nama" class="text-cyan-50"  />
+                    <x-mary-input label="Nama Pelanggan" wire:model="Nama" class="text-black" />
                 </div>
             </div>
 
@@ -133,14 +136,13 @@ new class extends Component {
                         option-value="No_Tarif"
                         option-label="Jenis_Plg"
                         placeholder="Pilih Jenis Pelanggan"
-                        class="text-cyan-50"
-                    />
+                        class="text-black" />
                 </div>
                 <div class="col-span-4">
-                    <x-mary-input label="Email" wire:model="Email" class="text-cyan-50" />
+                    <x-mary-input label="Email" wire:model="Email" class="text-black" />
                 </div>
                 <div class="col-span-4">
-                    <x-mary-input label="Telepon" wire:model="Telepon" class="text-cyan-50" />
+                    <x-mary-input label="Telepon" wire:model="Telepon" class="text-black" />
                 </div>
             </div>
 
@@ -151,8 +153,7 @@ new class extends Component {
                         placeholder="Your Address ..."
                         hint="Max 1000 chars"
                         rows="3"
-                        inline class="text-cyan-50"
-                    />
+                        inline class="text-black" />
                 </div>
             </div>
 

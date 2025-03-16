@@ -1,4 +1,5 @@
-<div>
+<!-- FILE KODE resources/views/livewire/layout/isi_terms.blade -->
+<x-layouts.guestTerms> //disini dia manggil layouts guestTerms
     <div class="container mx-auto px-4 py-8">
         <h1 class="text-3xl font-bold text-center mb-6 text-gray-800 dark:text-gray-200">Syarat dan Ketentuan</h1>
 
@@ -43,4 +44,4 @@
             </p>
         </div>
     </div>
-</div>
+</x-layouts.guestTerms>

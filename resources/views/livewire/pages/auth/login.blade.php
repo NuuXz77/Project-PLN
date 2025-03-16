@@ -32,9 +32,9 @@ new #[Layout('layouts.guest')] class extends Component
     <form wire:submit="login">
         {{-- Logo / Head --}}
         <div>
-            {{-- <x-application-logo class="mx-auto w-20 h-20 fill-current text-gray-900 dark:text-white" /> --}}
             <x-input-label for="judul" :value="__('Login Admin')" class="text-center font-bold text-4xl my-8" />
         </div>
+
         <!-- Email Address -->
         <div>
             <x-input-label for="email" :value="__('Email')" />
@@ -50,26 +50,6 @@ new #[Layout('layouts.guest')] class extends Component
                 type="password" name="password" required autocomplete="current-password" right />
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
-
-        <script>
-            function togglePasswordVisibility() {
-                const passwordField = document.getElementById('password');
-                const showIcon = document.getElementById('show-icon');
-                const hideIcon = document.getElementById('hide-icon');
-
-                if (passwordField.type === 'password') {
-                    // Jika password disembunyikan, ubah ke text (tampilkan password)
-                    passwordField.type = 'text';
-                    showIcon.classList.add('hidden'); // Sembunyikan ikon show
-                    hideIcon.classList.remove('hidden'); // Tampilkan ikon hide
-                } else {
-                    // Jika password ditampilkan, ubah ke password (sembunyikan password)
-                    passwordField.type = 'password';
-                    hideIcon.classList.add('hidden'); // Sembunyikan ikon hide
-                    showIcon.classList.remove('hidden'); // Tampilkan ikon show
-                }
-            }
-        </script>
 
         <!-- Remember Me -->
         <div class="block mt-4">
@@ -113,16 +93,25 @@ new #[Layout('layouts.guest')] class extends Component
                 </div>
                 @endif
             </div>
-
-
-
         </div>
     </form>
 
-    <!-- Script untuk mendengarkan event Livewire -->
+    <!-- Script untuk toggle password visibility -->
     <script>
-        Livewire.on('show-toast', (data) => {
-            showToast(data.message, data.type);
-        });
+        function togglePasswordVisibility() {
+            const passwordField = document.getElementById('password');
+            const showIcon = document.getElementById('show-icon');
+            const hideIcon = document.getElementById('hide-icon');
+
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                showIcon.classList.add('hidden');
+                hideIcon.classList.remove('hidden');
+            } else {
+                passwordField.type = 'password';
+                hideIcon.classList.add('hidden');
+                showIcon.classList.remove('hidden');
+            }
+        }
     </script>
 </div>
