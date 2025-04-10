@@ -1,5 +1,5 @@
 <div>
-    <x-mary-header title="Tarif" separator progress-indicator>
+    <x-mary-header title="Tarif" subtitle="Kelola data tarif listrik pelanggan dengan mudah." separator progress-indicator>
         <x-slot:middle class="!justify-end">
             <livewire:pelanggan.search-pelanggan name="search-pelanggan"/>
         </x-slot:middle>
@@ -22,7 +22,7 @@
         @endscope
 
         <!-- Custom Kolom Aksi -->
-        @scope('actions', $row)
+        @scope('cell_actions', $row)
             <x-mary-dropdown>
                 <x-slot:trigger>
                     <x-mary-button icon="m-ellipsis-vertical" class="bg-transparent dark:bg-transparent border-none" />

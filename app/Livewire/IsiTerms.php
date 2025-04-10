@@ -1,5 +1,5 @@
 <?php
-// app/Livewire/Layout/IsiTerms
+
 namespace App\Livewire\Layout;
 
 use Livewire\Component;

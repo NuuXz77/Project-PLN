@@ -42,7 +42,7 @@ class TabelPelanggan extends Component
             ['key' => 'Alamat', 'label' => 'Alamat'],
             ['key' => 'informasi_gabungan', 'label' => 'Informasi', 'class' => 'text-left'],
             ['key' => 'actions', 'label' => 'Aksi', 'class' => 'text-center'],
-            ['key' => 'Tarif', 'label' => 'Tabel Tarif']
+            // ['key' => 'Tarif', 'label' => 'Tabel Tarif']
         ];
 
         // Ambil data pelanggan dengan pencarian dan pagination

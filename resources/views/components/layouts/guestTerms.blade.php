@@ -1,4 +1,3 @@
-<!-- FILE KODE resources/views/livewire/layout/guestTerms.blade -->
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 
@@ -6,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <!-- <title>{{ $title ?? 'Terms and Conditions' }}</title> -->
+    <title>{{ $title ?? 'Terms and Conditions' }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -21,25 +20,21 @@
 </head>
 
 <body class="min-h-screen font-sans antialiased bg-gray-200 dark:bg-base-200">
-    <x-mary-main>
-        <header>
-            <div class="container">
-                <h1>Terms and Conditions</h1>
-            </div>
-        </header>
+    <header>
+        <div class="container">
+            <h1>Terms and Conditions</h1>
+        </div>
+    </header>
 
-        <main>
-            <x-slot:container>
-                {{ $slot }}
-            </x-slot:container>
-        </main>
+    <main>
+        {{ $slot }}
+    </main>
 
-        <footer>
-            <div class="container">
-                <p>&copy; {{ date('Y') }} Your Company. All rights reserved.</p>
-            </div>
-        </footer>
-    </x-mary-main>
+    <footer>
+        <div class="container">
+            <p>&copy; {{ date('Y') }} Your Company. All rights reserved.</p>
+        </div>
+    </footer>
     <!-- Toast -->
     <x-mary-toast />
 
