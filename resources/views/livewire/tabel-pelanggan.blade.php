@@ -14,25 +14,25 @@
         th:nth-child(2),
         td:nth-child(2) {
             /* No Kontrol */
-            width: 10%;
+            width: 15%;
         }
 
         th:nth-child(3),
         td:nth-child(3) {
             /* Nama Pelanggan */
-            width: 20%;
+            width: 25%;
         }
 
         th:nth-child(4),
         td:nth-child(4) {
             /* Alamat */
-            width: 30%;
+            width: 25%;
         }
 
         th:nth-child(5),
         td:nth-child(5) {
             /* Informasi */
-            width: 25%;
+            width: 24%;
         }
 
         th:nth-child(6),
@@ -64,7 +64,8 @@
         :rows="$pelanggan"
         with-pagination
         per-page="perPage"
-        :per-page-values="[3, 5, 10]">
+        :per-page-values="[3, 5, 10]"
+        pagination-class="text-black dark:text-white">
 
         @scope('row_number', $row)
         <span>{{ $row->number }}</span>

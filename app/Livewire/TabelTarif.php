@@ -36,12 +36,13 @@ class TabelTarif extends Component
     {
         // Header tabel
         $headers = [
-            ['key' => 'number', 'label' => 'No'], // Tambah nomor urut dinamis
+            ['key' => 'number', 'label' => 'No', 'class' => 'text-center'], // Tambah nomor urut dinamis
             ['key' => 'No_Tarif', 'label' => 'No Tarif'],
             ['key' => 'Jenis_Plg', 'label' => 'Jenis Pelanggan'],
             ['key' => 'Daya', 'label' => 'Daya'],
             ['key' => 'BiayaBeban', 'label' => 'Biaya Beban'],
             ['key' => 'TarifKWH', 'label' => 'Tarif KWH'],
+            ['key' => 'actions', 'label' => 'Aksi', 'class' => 'text-center'],
         ];
 
         // Ambil data tarif dengan pencarian dan pagination
