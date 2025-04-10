@@ -1,6 +1,7 @@
 <?php
 
 use Livewire\Volt\Component;
+// use Livewire\Component;
 use App\Models\Pelanggan;
 
 new class extends Component {
@@ -13,13 +14,10 @@ new class extends Component {
     public $Email;
     public $Jenis_Plg;
 
-    // Menerima event dari $dispatch
     protected $listeners = ['showModal' => 'openModal'];
 
-    // Method untuk membuka modal dan mengambil data berdasarkan customer_id
     public function openModal($id)
     {
-        // Ambil data pelanggan berdasarkan ID
         $pelanggan = Pelanggan::find($id);
 
         if ($pelanggan) {
@@ -32,30 +30,22 @@ new class extends Component {
             $this->Email = $pelanggan->Email;
             $this->Jenis_Plg = $pelanggan->Jenis_Plg;
 
-            // Buka modal
             $this->viewModal = true;
         } else {
-            // Beri feedback jika data tidak ditemukan
             session()->flash('error', 'Pelanggan tidak ditemukan.');
         }
     }
 
-    // Method untuk menutup modal
     public function closeModal()
     {
         $this->viewModal = false;
-        $this->resetForm();
-    }
-
-    // Method untuk reset form
-    public function resetForm()
-    {
         $this->reset(['customer_id', 'No_Kontrol', 'Nama', 'Alamat', 'Telepon', 'Email', 'Jenis_Plg']);
     }
-}; ?>
+};
+?>
 
 <div>
-    <!-- Modal untuk melihat data pelanggan -->
+    <!-- Modal untuk melihat data pelanggan YANG LAMA-->
     <x-mary-modal wire:model="viewModal" class="backdrop-blur" box-class="max-w-4xl" without-trap-focus>
         <x-mary-header title="Detail Pelanggan" subtitle="Lihat data pelanggan" separator />
         <div class="space-y-4">
@@ -94,11 +84,4 @@ new class extends Component {
             <x-mary-button label="Tutup" @click="$wire.closeModal()" />
         </x-slot:actions>
     </x-mary-modal>
-
-    {{-- <!-- Tombol untuk membuka modal (contoh) -->
-    <x-mary-button 
-        icon="o-eye" 
-        class="btn-primary" 
-        @click="$wire.viewModal = true"
-    /> --}}
 </div>

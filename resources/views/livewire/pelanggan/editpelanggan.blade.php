@@ -148,10 +148,12 @@ new class extends Component {
             <div class="grid grid-cols-12 gap-4">
                 <!-- No Kontrol otomatis -->
                 <div class="col-span-6">
-                    <x-mary-input label="No Kontrol" wire:model="No_Kontrol" readonly class="text-cyan-50"/>
+                    <x-mary-input label="No Kontrol" wire:model="No_Kontrol" readonly
+                        class="dark:text-black text-gray-900" />
                 </div>
                 <div class="col-span-6">
-                    <x-mary-input label="Nama Pelanggan" wire:model="Nama" class="text-cyan-50" />
+                    <x-mary-input label="Nama Pelanggan" wire:model="Nama"
+                        class="dark:text-black text-gray-900" />
                 </div>
             </div>
 
@@ -160,18 +162,23 @@ new class extends Component {
                     <x-mary-select
                         label="Jenis Pelanggan"
                         wire:model="Jenis_Plg"
-                        :options="[ ['id' => '1', 'name' => 'Rumah Tangga'], ['id' => '2', 'name' => 'Bisnis'], ['id' => '3', 'name' => 'Industri'], ]"
+                        :options="[ 
+                            ['id' => '1', 'name' => 'Rumah Tangga'], 
+                            ['id' => '2', 'name' => 'Bisnis'], 
+                            ['id' => '3', 'name' => 'Industri']
+                        ]"
                         option-value="id"
                         option-label="name"
                         placeholder="Pilih Jenis Pelanggan"
-                        class="text-cyan-50"
-                    />
+                        class="dark:text-black text-gray-900" />
                 </div>
                 <div class="col-span-4">
-                    <x-mary-input label="Email" wire:model="Email" class="text-cyan-50" />
+                    <x-mary-input label="Email" wire:model="Email"
+                        class="dark:text-black text-gray-900" />
                 </div>
                 <div class="col-span-4">
-                    <x-mary-input label="Telepon" wire:model="Telepon" class="text-cyan-50" />
+                    <x-mary-input label="Telepon" wire:model="Telepon"
+                        class="dark:text-black text-gray-900" />
                 </div>
             </div>
 
@@ -179,11 +186,11 @@ new class extends Component {
                 <div class="col-span-12 mt-3">
                     <x-mary-textarea
                         wire:model="Alamat"
-                        placeholder="Your Address ..."
+                        placeholder="User Address ..."
                         hint="Max 1000 chars"
                         rows="3"
-                        inline class="text-cyan-50"
-                    />
+                        inline
+                        class="dark:text-black text-gray-900" />
                 </div>
             </div>
 

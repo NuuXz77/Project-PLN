@@ -42,7 +42,7 @@ new class extends Component {
                 // Toast
                 $this->toast(
                     type: 'success',
-                    title: 'It is done!',
+                    title: 'Success',
                     description: 'Data Berhasil Di Hapus!',
                     position: 'toast-top toast-end',
                     icon: 'o-information-circle',
@@ -85,7 +85,7 @@ new class extends Component {
     <!-- Modal Delete -->
     <x-mary-modal wire:model="deleteModal" class="backdrop-blur">
         <div class="mb-5">
-            Apakah Anda yakin ingin menghapus pelanggan dengan ID: {{ $pelangganNo }}?
+            Apakah anda yakin ingin menghapus pelanggan dengan No Kontrol : {{ $pelangganNo }}?
         </div>
 
         <!-- Tombol Hapus -->
