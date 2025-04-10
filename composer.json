@@ -11,6 +11,7 @@
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.5",
         "livewire/volt": "^1.6",
+        "nerdroid23/blade-icomoon": "^2.0",
         "robsontenorio/mary": "^1.41"
     },
     "require-dev": {

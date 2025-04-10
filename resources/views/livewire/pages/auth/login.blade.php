@@ -32,7 +32,7 @@ new #[Layout('layouts.guest')] class extends Component
     <form wire:submit="login">
         {{-- Logo / Head --}}
         <div>
-            {{-- <x-application-logo class="mx-auto w-20 h-20 fill-current text-gray-900 dark:text-white" /> --}}
+            {{-- <x-application-logo class=" text-gray-900 dark:text-white" /> --}}
             <x-input-label for="judul" :value="__('Login Admin')" class="text-center font-bold text-4xl my-8" />
         </div>
         <!-- Email Address -->
