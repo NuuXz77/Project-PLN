@@ -28,11 +28,21 @@ class Pelanggan extends Model
         return $this->hasMany(Pemakaian::class, 'No_Kontrol', 'No_Kontrol');
     }
 
+    public function pembayaran()
+    {
+        return $this->hasMany(Pembayaran::class, 'No_Kontrol', 'No_Kontrol');
+    }
+
     // Relasi ke tabel Tarif berdasarkan Jenis_Plg
     public function tarif()
     {
         return $this->belongsTo(Tarif::class, 'Jenis_Plg', 'Jenis_Plg');
     }
+
+    // public function tarif()
+    // {
+    //     return $this->belongsTo(Tarif::class, 'No_Tarif');
+    // }
 
     // Tipe data kolom (opsional)
     protected $casts = [

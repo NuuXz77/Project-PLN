@@ -64,7 +64,7 @@ class TabelPelanggan extends Component
                         <span>{$item->Jenis_Plg}</span>
                         <span>{$item->Telepon}</span>
                     </div>
-                    <div class='text-black text-left justify-between'>{$item->Email}</div>
+                    <div class='justify-between'>{$item->Email}</div>
                 </div>
             ";
 

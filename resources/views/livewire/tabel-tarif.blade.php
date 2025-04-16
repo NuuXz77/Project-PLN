@@ -19,6 +19,11 @@
         <!-- Custom Kolom Nomor -->
         @scope('row_number', $row)
             <span>{{ $row['number'] }}</span>
+            @endscope
+            
+            <!-- Kolom Status Pembayaran -->
+        @scope('cell_Daya', $tarif)
+            <span>{{ $tarif['Daya'] }} VA</span>
         @endscope
 
         <!-- Custom Kolom Aksi -->

@@ -25,4 +25,8 @@ Route::view('tarif', 'tarif')
     ->middleware(['auth'])
     ->name('tarif');
 
+Route::view('pembayaran', 'pembayaran')
+    ->middleware(['auth'])
+    ->name('pembayaran');
+
 require __DIR__ . '/auth.php';
