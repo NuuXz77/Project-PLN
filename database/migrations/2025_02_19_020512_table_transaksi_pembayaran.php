@@ -14,16 +14,16 @@ return new class extends Migration
         Schema::create('transaksi_pembayaran', function (Blueprint $table) {
             $table->id('ID_Transaksi');
             $table->string('No_Transaksi')->unique();
-            $table->unsignedBigInteger('ID_Pemakaian');
-            $table->unsignedBigInteger('ID_Pelanggan');
+            $table->unsignedBigInteger('No_Pemakaian');
+            $table->unsignedBigInteger('No_Kontrol');
             $table->dateTime('TanggalPembayaran');
             $table->decimal('TotalTagihan', 10, 2);
             $table->enum('MetodePembayaran', ['Transfer', 'Virtual Account', 'QRIS', 'Tunai']);
             $table->enum('Status', ['Menunggu Konfirmasi', 'Lunas', 'Gagal']);
             $table->timestamps();
 
-            $table->foreign('ID_Pemakaian')->references('ID_Pemakaian')->on('pemakaian')->onDelete('cascade');
-            $table->foreign('ID_Pelanggan')->references('ID_Pelanggan')->on('pelanggan')->onDelete('cascade');
+            $table->foreign('No_Pemakaian')->references('No_Pemakaian')->on('pemakaian')->onDelete('cascade');
+            $table->foreign('No_Kontrol')->references('No_Kontrol')->on('pelanggan')->onDelete('cascade');
         });
     }
 

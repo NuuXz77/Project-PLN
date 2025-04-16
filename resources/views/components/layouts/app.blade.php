@@ -65,6 +65,7 @@
                 <x-mary-menu-item title="Dashboard" icon="o-home" link="/dashboard" />
                 <x-mary-menu-item title="Pelanggan" icon="o-users" link="/pelanggan" />
                 <x-mary-menu-item title="Pemakaian" icon="o-bolt" link="/pemakaian" />
+                <x-mary-menu-item title="Pembayaran" icon="o-bolt" link="/pembayaran" />
                 <x-mary-menu-item title="Tarif" icon="o-credit-card" link="/tarif" />
                 <x-mary-menu-item title="Transaksi" icon="o-currency-dollar" link="/transaksi" />
                 <x-mary-menu-sub title="Settings" icon="o-cog-6-tooth">

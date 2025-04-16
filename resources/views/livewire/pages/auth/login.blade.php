@@ -46,7 +46,7 @@ new #[Layout('layouts.guest')] class extends Component
         <!-- Password -->
         <div class="mt-4 relative">
             <x-input-label for="Password" :value="__('Password')" />
-            <x-mary-password id="password" wire:model="password" class="block mt-1 w-full pr-10 !text-black"
+            <x-mary-password id="password" wire:model="form.password"
                 type="password" name="password" required autocomplete="current-password" right />
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
