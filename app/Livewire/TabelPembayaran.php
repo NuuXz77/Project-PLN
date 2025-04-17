@@ -75,6 +75,7 @@ class TabelPembayaran extends Component
             $item->number = ($pemakaian->currentPage() - 1) * $pemakaian->perPage() + $index + 1;
 
             $NoPembayaran = Pembayaran::all();
+
             // Data dasar
             $standAwal = $item->MeterAwal ?? 0;
             $standAkhir = $item->MeterAkhir ?? 0;
@@ -118,6 +119,7 @@ class TabelPembayaran extends Component
             $item->Admin = $adminBiaya;
             $item->TotalBayar = $totalBayar;
 
+
             // Cek apakah pembayaran sudah ada berdasarkan No_Pemakaian
             $pembayaran = Pembayaran::where('No_Kontrol', $item->No_Kontrol)->first();
 
@@ -130,11 +132,11 @@ class TabelPembayaran extends Component
                     $item->pelanggan->No_Kontrol ?? 'NOKONTROL',
                     $item->No_Pemakaian
                 );
-
                 // Simpan pembayaran baru ke database
                 Pembayaran::create([
                     'No_Pembayaran' => $noPembayaranBaru,
                     'No_Pemakaian' => $item->No_Pemakaian,
+
                     'No_Kontrol' => $item->pelanggan->No_Kontrol ?? '-',
                     'Nama' => $item->pelanggan->Nama ?? '-',
                     'No_Tarif' => $item->pelanggan->tarif->No_Tarif ?? null,
@@ -143,12 +145,9 @@ class TabelPembayaran extends Component
                     'Admin' => $adminBiaya,
                     'TotalBayar' => $totalBayar,
                 ]);
-
                 // Setelah pembayaran baru dibuat, set No_Pembayaran pada item
                 $item->No_Pembayaran = $noPembayaranBaru;
             }
-
-
             return $item;
         });
 
