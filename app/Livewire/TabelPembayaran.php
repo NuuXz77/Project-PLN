@@ -74,6 +74,7 @@ class TabelPembayaran extends Component
         $pembayaranData = collect($pemakaian->items())->map(function ($item, $index) use ($pemakaian, $adminBiaya) {
             $item->number = ($pemakaian->currentPage() - 1) * $pemakaian->perPage() + $index + 1;
 
+            $NoPembayaran = Pembayaran::all();
             // Data dasar
             $standAwal = $item->MeterAwal ?? 0;
             $standAkhir = $item->MeterAkhir ?? 0;
@@ -109,25 +110,31 @@ class TabelPembayaran extends Component
             // Simpan nilai untuk keperluan lain
             // Tambahkan data pembayaran ke item
             $item->ID_Pembayaran;
-            
+
             $item->No_Pembayaran;
+            // dd($item->NoPembayaran->No_Pembayaran);
             $item->BiayaBeban = $biayaBeban;
             $item->BiayaPemakaian = $biayaPemakaian;
             $item->Admin = $adminBiaya;
             $item->TotalBayar = $totalBayar;
 
-            // Cek apakah pembayaran sudah ada
-            $pembayaranExist = Pembayaran::where('No_Pembayaran', $item->No_Pembayaran)->exists();
+            // Cek apakah pembayaran sudah ada berdasarkan No_Pemakaian
+            $pembayaran = Pembayaran::where('No_Kontrol', $item->No_Kontrol)->first();
 
-            // Jika belum ada, buat pembayaran baru
-            if (!$pembayaranExist) {
-                $noPembayaran = $this->generateNoPembayaran(
+            if ($pembayaran) {
+                // Jika pembayaran sudah ada, ambil No_Pembayaran dari pembayaran yang ada
+                $item->No_Pembayaran = $pembayaran->No_Pembayaran;
+            } else {
+                // Kalau belum ada, buat pembayaran baru
+                $noPembayaranBaru = $this->generateNoPembayaran(
                     $item->pelanggan->No_Kontrol ?? 'NOKONTROL',
-                    $item->No_Pembayaran
+                    $item->No_Pemakaian
                 );
 
+                // Simpan pembayaran baru ke database
                 Pembayaran::create([
-                    'No_Pembayaran' => $noPembayaran,
+                    'No_Pembayaran' => $noPembayaranBaru,
+                    'No_Pemakaian' => $item->No_Pemakaian,
                     'No_Kontrol' => $item->pelanggan->No_Kontrol ?? '-',
                     'Nama' => $item->pelanggan->Nama ?? '-',
                     'No_Tarif' => $item->pelanggan->tarif->No_Tarif ?? null,
@@ -137,8 +144,10 @@ class TabelPembayaran extends Component
                     'TotalBayar' => $totalBayar,
                 ]);
 
+                // Setelah pembayaran baru dibuat, set No_Pembayaran pada item
+                $item->No_Pembayaran = $noPembayaranBaru;
             }
-           
+
 
             return $item;
         });
