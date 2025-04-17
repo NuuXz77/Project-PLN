@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('pembayaran', function (Blueprint $table) {
             $table->id('ID_Pembayaran');
-            $table->string('No_Pembayaran');
+            $table->string('No_Pembayaran')->unique();
             $table->string('No_Kontrol'); // FK ke pelanggan
             $table->string('Nama');
             $table->string('No_Tarif'); // dari Tarif

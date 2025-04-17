@@ -8,7 +8,11 @@
         </x-slot:actions>
     </x-mary-header>
     <x-mary-table class="bg-white dark:bg-base-100" :headers="$headers" :rows="$pembayaran" with-pagination
-        per-page="perPage" :per-page-values="[5, 10, 20]">
+    per-page="perPage" :per-page-values="[5, 10, 20]">
+        @scope('cell_No_Pembayaran', $pembayaran)
+        {!! $pembayaran->No_Pembayaran !!}
+        @endscope
+
         @scope('cell_stand_meter', $pembayaran)
         {!! $pembayaran->stand_meter !!}
         @endscope
