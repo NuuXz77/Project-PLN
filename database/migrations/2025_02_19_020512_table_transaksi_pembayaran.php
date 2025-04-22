@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('transaksi_pembayaran', function (Blueprint $table) {
             $table->id('ID_Transaksi');
             $table->string('No_Transaksi')->unique();
-            $table->unsignedBigInteger('No_Pemakaian');
-            $table->unsignedBigInteger('No_Kontrol');
+            $table->string('No_Pemakaian');
+            $table->string('No_Kontrol');
             $table->dateTime('TanggalPembayaran');
             $table->decimal('TotalTagihan', 10, 2);
             $table->enum('MetodePembayaran', ['Transfer', 'Virtual Account', 'QRIS', 'Tunai']);
