@@ -161,6 +161,7 @@ class TabelPembayaran extends Component
             ['path' => \Illuminate\Pagination\Paginator::resolveCurrentPath()]
         );
 
+        
         return view('livewire.tabel-pembayaran', [
             'headers' => $headers,
             'pembayaran' => $pembayaran,

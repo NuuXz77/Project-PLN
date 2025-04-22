@@ -37,10 +37,15 @@
             <x-mary-menu-item icon="o-trash"
                 wire:click="$dispatch('showDeleteModal', { id: '{{ $pembayaran->ID_Pembayaran }}' })" />
         </x-mary-dropdown> --}}
-        <x-mary-button
-            label="Konfirmasi"
-            class="btn-success"
-            wire:click="$dispatch('konfirmasiModal', { id: '{{ $pembayaran->Nama }}' })" />
+        @if($pembayaran->StatusPembayaran == "Belum Lunas")
+            {{$pembayaran}}
+            <x-mary-button
+                label="Konfirmasi"
+                class="btn-success"
+                wire:click="$dispatch('konfirmasiModal', { id: '{{ $pembayaran->No_Kontrol }}' })" />
+        @else
+            <x-mary-badge :value="$pembayaran->StatusPembayaran" class="badge-success badge-soft" />
+        @endif
         @endscope
 
         <x-slot:empty>

@@ -216,21 +216,21 @@ new class extends Component {
             </div>
             <div class="grid grid-cols-12 gap-4">
                 <div class="col-span-4">
-                    <x-mary-input label="Meter Awal" wire:model.live="MeterAwal" type="number" />
+                    <x-mary-input label="Meter Awal" wire:model.live="MeterAwal" type="number" class="text-black dark:text-white"/>
                 </div>
                 <div class="col-span-4">
-                    <x-mary-input label="Meter Akhir" wire:model.live="MeterAkhir" type="number" />
+                    <x-mary-input label="Meter Akhir" wire:model.live="MeterAkhir" type="number" class="text-black dark:text-white"/>
                 </div>
                 <div class="col-span-4">
-                    <x-mary-input label="Jumlah Pakai" wire:model="JumlahPakai" type="number" readonly />
+                    <x-mary-input label="Jumlah Pakai" wire:model="JumlahPakai" type="number" readonly class="text-black dark:text-white"/>
                 </div>
             </div>
             <div class="grid grid-cols-12 gap-4">
                 <div class="col-span-6">
-                    <x-mary-input label="Biaya Beban" wire:model="BiayaBebanPemakaian" type="number" readonly />
+                    <x-mary-input label="Biaya Beban" wire:model="BiayaBebanPemakaian" type="number" readonly class="text-black dark:text-white"/>
                 </div>
                 <div class="col-span-6">
-                    <x-mary-input label="Biaya Pemakaian" wire:model="BiayaPemakaian" type="number" readonly />
+                    <x-mary-input label="Biaya Pemakaian" wire:model="BiayaPemakaian" type="number" readonly class="text-black dark:text-white"/>
                 </div>
             </div>
             <x-slot:actions>

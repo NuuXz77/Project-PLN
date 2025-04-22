@@ -8,12 +8,11 @@
                         Jangan lupa, jika telat Anda pasti dapat denda. Bayar segera karena itu adalah hutang.
                     </p>
                     <div class="flex justify-center">
-                        <x-mary-header>
-                            <livewire:search-tagihan.input-search>
-                        </x-mary-header>
+                        
                     </div>
-                    <div>
-                        <x-mary-card title="Struk Pembayaran Tagihan Listrik" subtitle="Detail Pembayaran" shadow separator>
+                    {{-- <div>
+                        <x-mary-card title="Struk Pembayaran Tagihan Listrik" subtitle="Detail Pembayaran" shadow
+                            separator>
                             <div class="space-y-4">
                                 <!-- Informasi Pelanggan -->
                                 <div>
@@ -41,14 +40,27 @@
 
                                 <!-- Informasi Tambahan -->
                                 <div>
-                                    <p class="text-sm">PLN MENYATAKAN STRUK INI SEBAGAI BUKTI PEMBAYARAN YANG SAH, HARAP DISIMPAN.</p>
+                                    <p class="text-sm">PLN MENYATAKAN STRUK INI SEBAGAI BUKTI PEMBAYARAN YANG SAH, HARAP
+                                        DISIMPAN.</p>
                                     <p class="text-sm">INFORMASI PLN HUB : 123</p>
                                 </div>
                             </div>
                         </x-mary-card>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="flex w-full flex-col lg:flex-row">
+        <div class="card bg-base-300 rounded-box grid h-auto grow place-items-center">
+            <img src="{{asset('img/ilustrasi.svg')}}" alt="">
+            Hello
+        </div>
+        <div class="divider lg:divider-horizontal">OR</div>
+        <div class="card bg-base-300 rounded-box grid h-auto grow place-items-center">
+            <x-mary-header>
+                <livewire:search-tagihan.input-search>
+            </x-mary-header>
         </div>
     </div>
 </x-layouts.page>
