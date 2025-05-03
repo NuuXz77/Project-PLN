@@ -4,7 +4,7 @@
             <livewire:pelanggan.search-pelanggan name="search-pelanggan" />
         </x-slot:middle>
         <x-slot:actions>
-            <livewire:pembayaran.add-pembayaran name="addModal" />
+            {{-- <livewire:pembayaran.add-pembayaran name="addModal" /> --}}
         </x-slot:actions>
     </x-mary-header>
     <x-mary-table class="bg-white dark:bg-base-100" :headers="$headers" :rows="$pembayaran" with-pagination
@@ -37,10 +37,15 @@
             <x-mary-menu-item icon="o-trash"
                 wire:click="$dispatch('showDeleteModal', { id: '{{ $pembayaran->ID_Pembayaran }}' })" />
         </x-mary-dropdown> --}}
-        <x-mary-button
-            label="Konfirmasi"
-            class="btn-success"
-            wire:click="$dispatch('konfirmasiModal', { id: '{{ $pembayaran->Nama }}' })" />
+        @if($pembayaran->StatusPembayaran == "Belum Lunas")
+            {{$pembayaran}}
+            <x-mary-button
+                label="Konfirmasi"
+                class="btn-success"
+                wire:click="$dispatch('konfirmasiModal', { id: '{{ $pembayaran->No_Kontrol }}' })" />
+        @else
+            <x-mary-badge :value="$pembayaran->StatusPembayaran" class="badge-success badge-soft" />
+        @endif
         @endscope
 
         <x-slot:empty>
@@ -49,8 +54,8 @@
     </x-mary-table>
 
     <!-- Komponen Modal -->
-    <livewire:pembayaran.show-pembayaran name="viewModal" />
+    {{-- <livewire:pembayaran.show-pembayaran name="viewModal" />
     <livewire:pembayaran.edit-pembayaran name="editModal" />
-    <livewire:pembayaran.delete-pembayaran name="deleteModal" />
+    <livewire:pembayaran.delete-pembayaran name="deleteModal" /> --}}
     <livewire:pembayaran.konfirmasi-pembayaran name="konfirmasiModal" />
 </div>

@@ -72,42 +72,42 @@ new class extends Component {
         <div class="space-y-4">
             <div class="grid grid-cols-12 gap-4">
                 <div class="col-span-6">
-                    <x-mary-input label="No Pemakaian" wire:model="No_Pemakaian" readonly />
+                    <x-mary-input label="No Pemakaian" wire:model="No_Pemakaian" readonly class="text-black dark:text-white"/>
                 </div>
                 <div class="col-span-6">
-                    <x-mary-input label="No Kontrol" wire:model="No_Kontrol" readonly />
+                    <x-mary-input label="No Kontrol" wire:model="No_Kontrol" readonly class="text-black dark:text-white"/>
                 </div>
             </div>
             <div class="grid grid-cols-12 gap-4">
                 <div class="col-span-6">
-                    <x-mary-input label="Nama Pelanggan" wire:model="Nama" readonly />
+                    <x-mary-input label="Nama Pelanggan" wire:model="Nama" readonly class="text-black dark:text-white"/>
                 </div>
                 <div class="col-span-6">
-                    <x-mary-input label="Tanggal Catat" wire:model="TanggalCatat" readonly />
+                    <x-mary-input label="Tanggal Catat" wire:model="TanggalCatat" readonly class="text-black dark:text-white"/>
                 </div>
             </div>
             <div class="grid grid-cols-12 gap-4">
                 <div class="col-span-4">
-                    <x-mary-input label="Meter Awal" wire:model="MeterAwal" readonly />
+                    <x-mary-input label="Meter Awal" wire:model="MeterAwal" readonly class="text-black dark:text-white"/>
                 </div>
                 <div class="col-span-4">
-                    <x-mary-input label="Meter Akhir" wire:model="MeterAkhir" readonly />
+                    <x-mary-input label="Meter Akhir" wire:model="MeterAkhir" readonly class="text-black dark:text-white"/>
                 </div>
                 <div class="col-span-4">
-                    <x-mary-input label="Jumlah Pakai" wire:model="JumlahPakai" readonly />
+                    <x-mary-input label="Jumlah Pakai" wire:model="JumlahPakai" readonly class="text-black dark:text-white"/>
                 </div>
             </div>
             <div class="grid grid-cols-12 gap-4">
                 <div class="col-span-6">
-                    <x-mary-input label="Biaya Beban" wire:model="BiayaBebanPemakaian" readonly />
+                    <x-mary-input label="Biaya Beban" wire:model="BiayaBebanPemakaian" readonly class="text-black dark:text-white"/>
                 </div>
                 <div class="col-span-6">
-                    <x-mary-input label="Biaya Pemakaian" wire:model="BiayaPemakaian" readonly />
+                    <x-mary-input label="Biaya Pemakaian" wire:model="BiayaPemakaian" readonly class="text-black dark:text-white"/>
                 </div>
             </div>
             <div class="grid grid-cols-12 gap-4">
                 <div class="col-span-12">
-                    <x-mary-input label="Status Pembayaran" wire:model="StatusPembayaran" readonly />
+                    <x-mary-input label="Status Pembayaran" wire:model="StatusPembayaran" readonly class="text-black dark:text-white"/>
                 </div>
             </div>
         </div>

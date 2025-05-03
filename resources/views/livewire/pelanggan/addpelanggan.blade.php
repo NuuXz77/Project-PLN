@@ -120,10 +120,10 @@ new class extends Component {
             <div class="grid grid-cols-12 gap-4">
                 <!-- No Kontrol otomatis -->
                 <div class="col-span-6">
-                    <x-mary-input label="No Kontrol" wire:model="No_Kontrol" readonly class="text-black" />
+                    <x-mary-input label="No Kontrol" wire:model="No_Kontrol" readonly class="text-black dark:text-white" />
                 </div>
                 <div class="col-span-6">
-                    <x-mary-input label="Nama Pelanggan" wire:model="Nama" class="text-black" />
+                    <x-mary-input label="Nama Pelanggan" wire:model="Nama" class="text-black dark:text-white" />
                 </div>
             </div>
 
@@ -136,13 +136,13 @@ new class extends Component {
                         option-value="Jenis_Plg"
                         option-label="Jenis_Plg"
                         placeholder="Pilih Jenis Pelanggan"
-                        class="text-black" />
+                        class="text-black dark:text-white" />
                 </div>
                 <div class="col-span-4">
-                    <x-mary-input label="Email" wire:model="Email" class="text-black" />
+                    <x-mary-input label="Email" wire:model="Email" class="text-black dark:text-white" />
                 </div>
                 <div class="col-span-4">
-                    <x-mary-input label="Telepon" wire:model="Telepon" class="text-black" />
+                    <x-mary-input label="Telepon" wire:model="Telepon" class="text-black dark:text-white" />
                 </div>
             </div>
 
@@ -153,7 +153,7 @@ new class extends Component {
                         placeholder="Your Address ..."
                         hint="Max 1000 chars"
                         rows="3"
-                        inline class="text-black" />
+                        inline class="text-black dark:text-white" />
                 </div>
             </div>
 

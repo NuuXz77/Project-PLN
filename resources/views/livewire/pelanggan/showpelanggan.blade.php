@@ -51,21 +51,21 @@ new class extends Component {
         <div class="space-y-4">
             <div class="grid grid-cols-12 gap-4">
                 <div class="col-span-6">
-                    <x-mary-input label="No Kontrol" wire:model="No_Kontrol" readonly />
+                    <x-mary-input label="No Kontrol" wire:model="No_Kontrol" readonly class="text-black dark:text-white"/>
                 </div>
                 <div class="col-span-6">
-                    <x-mary-input label="Nama Pelanggan" wire:model="Nama" readonly />
+                    <x-mary-input label="Nama Pelanggan" wire:model="Nama" readonly class="text-black dark:text-white"/>
                 </div>
             </div>
             <div class="grid grid-cols-12 gap-4">
                 <div class="col-span-4">
-                    <x-mary-input label="Jenis Pelanggan" wire:model="Jenis_Plg" readonly />
+                    <x-mary-input label="Jenis Pelanggan" wire:model="Jenis_Plg" readonly class="text-black dark:text-white"/>
                 </div>
                 <div class="col-span-4">
-                    <x-mary-input label="Email" wire:model="Email" readonly />
+                    <x-mary-input label="Email" wire:model="Email" readonly class="text-black dark:text-white"/>
                 </div>
                 <div class="col-span-4">
-                    <x-mary-input label="Telepon" wire:model="Telepon" readonly />
+                    <x-mary-input label="Telepon" wire:model="Telepon" readonly class="text-black dark:text-white"/>
                 </div>
             </div>
             <div class="grid grid-cols-12 gap-4">
@@ -76,7 +76,7 @@ new class extends Component {
                         hint="Max 1000 chars"
                         rows="3"
                         readonly
-                        inline />
+                        inline class="text-black dark:text-white"/>
                 </div>
             </div>
         </div>

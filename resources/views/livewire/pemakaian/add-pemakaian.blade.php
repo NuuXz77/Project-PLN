@@ -143,7 +143,7 @@ new class extends Component {
             <div class="grid grid-cols-12 gap-4">
 
                 <div class="col-span-12">
-                    <x-mary-input label="No Pemakaian" wire:model="No_Pemakaian" readonly />
+                    <x-mary-input label="No Pemakaian" wire:model="No_Pemakaian" readonly class="text-black dark:text-white"/>
                 </div>
 
                 <div class="col-span-6">
@@ -154,31 +154,32 @@ new class extends Component {
                         option-value="No_Kontrol"
                         option-label="Nama"
                         placeholder="Pilih Pelanggan"
-                        wire:change="generateNoPemakaian" />
+                        wire:change="generateNoPemakaian"
+                        class="text-black dark:text-white"/>
                 </div>
 
                 <div class="col-span-6">
-                    <x-mary-input label="Tanggal Catat" type="date" wire:model="TanggalCatat" />
+                    <x-mary-input label="Tanggal Catat" type="date" wire:model="TanggalCatat" class="text-black dark:text-white"/>
                 </div>
 
                 <div class="col-span-6">
-                    <x-mary-input label="Meter Awal" type="number" wire:model.live="MeterAwal" />
+                    <x-mary-input label="Meter Awal" type="number" wire:model.live="MeterAwal" class="text-black dark:text-white"/>
                 </div>
 
                 <div class="col-span-6">
-                    <x-mary-input label="Meter Akhir" type="number" wire:model.live="MeterAkhir" />
+                    <x-mary-input label="Meter Akhir" type="number" wire:model.live="MeterAkhir" class="text-black dark:text-white"/>
                 </div>
 
                 <div class="col-span-6">
-                    <x-mary-input label="Jumlah Pakai" type="number" wire:model="JumlahPakai" readonly />
+                    <x-mary-input label="Jumlah Pakai" type="number" wire:model="JumlahPakai" readonly class="text-black dark:text-white"/>
                 </div>
 
                 <div class="col-span-6">
-                    <x-mary-input label="Biaya Beban Pemakai" type="number" wire:model="BiayaBebanPemakaian" readonly />
+                    <x-mary-input label="Biaya Beban Pemakai" type="number" wire:model="BiayaBebanPemakaian" readonly class="text-black dark:text-white"/>
                 </div>
 
                 <div class="col-span-6">
-                    <x-mary-input label="Biaya Pemakaian" type="number" wire:model="BiayaPemakaian" readonly />
+                    <x-mary-input label="Biaya Pemakaian" type="number" wire:model="BiayaPemakaian" readonly class="text-black dark:text-white"/>
                 </div>
 
                 <div class="col-span-6">
@@ -191,7 +192,8 @@ new class extends Component {
                         ]"
                         option-value="id"
                         option-label="name"
-                        placeholder="Pilih Status" />
+                        placeholder="Pilih Status"
+                    class="text-black dark:text-white"/>
                 </div>
 
             </div>

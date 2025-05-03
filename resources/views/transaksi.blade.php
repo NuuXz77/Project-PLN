@@ -1,7 +1,7 @@
-<x-layouts.page>
+<x-layouts.app>
     <x-slot name="header">
         <h2 class="font-semibold text-xl leading-tight">
-            <livewire:be-welcome />
+            <livewire:tabel-transaksi/>
         </h2>
     </x-slot>
-</x-layouts.page>
+</x-layouts.app>
