@@ -79,7 +79,6 @@
             @scope('cell_biaya_gabungan', $pemakaian)
             <div class="cell-content">
                 {!! $pemakaian->biaya_gabungan !!}
-                <div class="mt-1 font-bold">Total: Rp {{ number_format($pemakaian->TotalBayar, 0, ',', '.') }}</div>
             </div>
             @endscope
 
