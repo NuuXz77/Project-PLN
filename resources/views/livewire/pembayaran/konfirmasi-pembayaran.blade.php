@@ -84,7 +84,13 @@ new class extends Component {
             $this->MetodePembayaran = 'Tunai'; // Reset metode pembayaran setiap kali modal dibuka
             $this->konfirmasiModal = true;
         } else {
-            $this->toast(type: 'error', title: 'Data tidak ditemukan', description: 'Data pembayaran tidak ditemukan.', position: 'toast-top toast-end', timeout: 3000);
+            // dd($id);sd
+            $this->toast(
+                type: 'error',
+                title: 'Error!',
+                description: 'Data pembayaran tidak ditemukan.',
+                timeout: 3000
+            );
         }
     }
 

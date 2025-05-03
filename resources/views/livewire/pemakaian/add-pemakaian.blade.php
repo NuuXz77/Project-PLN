@@ -147,7 +147,7 @@ new class extends Component {
                 </div>
 
                 <div class="col-span-6">
-                    <x-mary-select 
+                    <x-mary-select
                         label="Nomor Kontrol"
                         wire:model="No_Kontrol"
                         :options="$pelangganList"
@@ -155,7 +155,7 @@ new class extends Component {
                         option-label="Nama"
                         placeholder="Pilih Pelanggan"
                         wire:change="generateNoPemakaian"
-                    class="text-black dark:text-white"/>
+                        class="text-black dark:text-white"/>
                 </div>
 
                 <div class="col-span-6">
@@ -183,7 +183,7 @@ new class extends Component {
                 </div>
 
                 <div class="col-span-6">
-                    <x-mary-select 
+                    <x-mary-select
                         label="Status Pembayaran"
                         wire:model="StatusPembayaran"
                         :options="[
