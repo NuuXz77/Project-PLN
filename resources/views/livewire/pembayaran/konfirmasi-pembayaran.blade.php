@@ -41,7 +41,7 @@ new class extends Component {
             
             $this->konfirmasiModal = true;
         } else {
-            // dd($id);
+            // dd($id);sd
             $this->toast(
                 type: 'error',
                 title: 'Error!',
