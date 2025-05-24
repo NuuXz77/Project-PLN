@@ -3,7 +3,7 @@
 use Livewire\Volt\Component;
 use Livewire\WithPagination;
 use App\Models\Pelanggan;
-use App\Models\Tarif; // Tambahkan ini untuk mengakses model Tarif
+use App\Models\Tarif;
 use Mary\Traits\Toast;
 
 new class extends Component {
@@ -17,18 +17,12 @@ new class extends Component {
     public $Email;
     public $Jenis_Plg;
 
-    // Tambahkan properti untuk menyimpan opsi Jenis_Plg dari tabel Tarif
-    public $jenisPlgOptions = [
-        ['No_Tarif' => 1, 'Jenis_Plg' => 'Rumah Tangga'],
-        ['No_Tarif' => 2, 'Jenis_Plg' => 'Bisnis'],
-        ['No_Tarif' => 3, 'Jenis_Plg' => 'Industri'],
-    ];
+    public $jenisPlgOptions = [];
 
-    // Method untuk mengambil data Jenis_Plg dari tabel Tarif
     public function mount()
     {
         $this->jenisPlgOptions = Tarif::all()->toArray();
-        // dump($this->jenisPlgOptions);
+        $this->generateKodeKontrol(); // Generate kode otomatis saat modal dibuka
     }
 
     public function refreshTable()
@@ -41,7 +35,7 @@ new class extends Component {
         'Alamat' => 'required|string|max:1000',
         'Telepon' => 'required|numeric|min:10',
         'Email' => 'required|email',
-        'Jenis_Plg' => 'required', // Validasi Jenis_Plg
+        'Jenis_Plg' => 'required',
     ];
 
     public function updatedTelepon()
@@ -51,26 +45,24 @@ new class extends Component {
 
     public function generateKodeKontrol()
     {
-        if (empty($this->Telepon)) {
-            session()->flash('error', 'Nomor Telepon harus diisi terlebih dahulu.');
-            return;
+        $now = now(); // Menggunakan waktu sistem saat ini (real-time)
+        $year = $now->format('Y'); // Tahun 4 digit
+        $time = $now->format('Gis'); // Format 24 jam tanpa leading zero (jam 17:05:30 -> 170530)
+
+        // Jika ada nomor telepon, gunakan 6 digit terakhir
+        $nomor = !empty($this->Telepon) ? substr($this->Telepon, -6) : rand(100000, 999999);
+
+        $this->No_Kontrol = 'PLN' . $nomor . $year . $time;
+
+        // Cek jika nomor sudah ada, tambahkan random number
+        while (Pelanggan::where('No_Kontrol', $this->No_Kontrol)->exists()) {
+            $this->No_Kontrol = 'PLN' . $nomor . $year . $time . rand(10, 99);
         }
-
-        $noTeleponLast6 = substr($this->Telepon, -6);
-
-        do {
-            $this->No_Kontrol = 'PLN-' . strtoupper($noTeleponLast6);  // Format: PLN-123456
-        } while (Pelanggan::where('No_Kontrol', $this->No_Kontrol)->exists());
     }
 
     public function save()
     {
         $this->validate();
-
-        if (empty($this->No_Kontrol)) {
-            session()->flash('error', 'Kode Kontrol tidak dapat kosong.');
-            return;
-        }
 
         Pelanggan::create([
             'No_Kontrol' => $this->No_Kontrol,
@@ -81,34 +73,24 @@ new class extends Component {
             'Jenis_Plg' => $this->Jenis_Plg,
         ]);
 
-        // Toast
-        $this->toast(
-            type: 'success',
-            title: 'Success',
-            description: null,
-            position: 'bottom-end',
-            icon: 'o-information-circle',
-            css: 'alert-info',
-            timeout: 3000,
-            redirectTo: null
-        );
+        $this->toast(type: 'success', title: 'Success', description: null, position: 'bottom-end', icon: 'o-information-circle', css: 'alert-info', timeout: 3000, redirectTo: null);
 
         $this->success('Data Berhasil Di Tambahkan !');
         $this->resetForm();
         $this->refreshTable();
         $this->addModal = false;
-
-        session()->flash('message', 'Pelanggan berhasil ditambahkan!');
     }
 
     public function resetForm()
     {
         $this->reset(['No_Kontrol', 'Nama', 'Alamat', 'Telepon', 'Email', 'Jenis_Plg']);
+        $this->generateKodeKontrol(); // Generate baru saat form direset
     }
 
     public function openModal()
     {
         $this->addModal = true;
+        $this->generateKodeKontrol(); // Generate baru saat modal dibuka
     }
 };
 ?>
@@ -120,40 +102,33 @@ new class extends Component {
             <div class="grid grid-cols-12 gap-4">
                 <!-- No Kontrol otomatis -->
                 <div class="col-span-6">
-                    <x-mary-input label="No Kontrol" wire:model="No_Kontrol" readonly class="text-black dark:text-white" />
+                    <x-mary-input label="No Kontrol" wire:model="No_Kontrol" readonly class=""
+                        x-on:click="$wire.generateKodeKontrol()" />
                 </div>
                 <div class="col-span-6">
-                    <x-mary-input label="Nama Pelanggan" wire:model="Nama" class="text-black dark:text-white" />
+                    <x-mary-input label="Nama Pelanggan" wire:model="Nama" class="" />
                 </div>
             </div>
 
             <div class="grid grid-cols-12 gap-4">
                 <div class="col-span-4">
-                    <x-mary-select
-                        label="Jenis Pelanggan"
-                        wire:model="Jenis_Plg"
-                        :options="$this->jenisPlgOptions"
-                        option-value="Jenis_Plg"
-                        option-label="Jenis_Plg"
-                        placeholder="Pilih Jenis Pelanggan"
-                        class="text-black dark:text-white" />
+                    <x-mary-select label="Jenis Pelanggan" wire:model="Jenis_Plg" :options="$this->jenisPlgOptions"
+                        option-value="Jenis_Plg" option-label="Jenis_Plg" placeholder="Pilih Jenis Pelanggan"
+                        class="" />
                 </div>
                 <div class="col-span-4">
-                    <x-mary-input label="Email" wire:model="Email" class="text-black dark:text-white" />
+                    <x-mary-input label="Email" wire:model="Email" class="" />
                 </div>
                 <div class="col-span-4">
-                    <x-mary-input label="Telepon" wire:model="Telepon" class="text-black dark:text-white" />
+                    <x-mary-input label="Telepon" wire:model="Telepon" class=""
+                        x-on:input.debounce.500ms="$wire.generateKodeKontrol()" />
                 </div>
             </div>
 
             <div class="grid grid-cols-12 gap-4">
                 <div class="col-span-12 mt-3">
-                    <x-mary-textarea
-                        wire:model="Alamat"
-                        placeholder="Your Address ..."
-                        hint="Max 1000 chars"
-                        rows="3"
-                        inline class="text-black dark:text-white" />
+                    <x-mary-textarea wire:model="Alamat" placeholder="Your Address ..." hint="Max 1000 chars"
+                        rows="3" inline class="" />
                 </div>
             </div>
 
@@ -164,6 +139,5 @@ new class extends Component {
         </x-mary-form>
     </x-mary-modal>
 
-    <!-- Tombol untuk membuka modal -->
     <x-mary-button icon="o-plus" class="btn-primary" @click="$wire.openModal()" />
 </div>

@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\HasOne;
 
 class Pembayaran extends Model
 {
-    protected $table = 'pembayaran'; // Nama tabel di database
 
+    protected $table = 'pembayaran';
     protected $primaryKey = 'ID_Pembayaran';
 
     protected $fillable = [
@@ -34,5 +35,11 @@ class Pembayaran extends Model
     public function transaksiPembayaran()
     {
         return $this->hasOne(Transaksi::class, 'ID_Pelanggan', 'No_Kontrol');
+    }
+
+    // Model Pembayaran
+    public function pemakaian()
+    {
+        return $this->belongsTo(Pemakaian::class, 'ID_Pemakaian', 'ID_Pemakaian');
     }
 }

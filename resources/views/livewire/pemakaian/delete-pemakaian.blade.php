@@ -54,7 +54,7 @@ new class extends Component {
             if ($pemakaian) {
                 // Hapus data pemakaian
                 $pemakaian->delete();
-
+                
                 // Toast sukses
                 $this->toast(
                     type: 'success',

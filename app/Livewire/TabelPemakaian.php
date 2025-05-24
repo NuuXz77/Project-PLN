@@ -39,8 +39,8 @@ class TabelPemakaian extends Component
             ['key' => 'number', 'label' => 'No', 'class' => 'text-center'],
             ['key' => 'No_Pemakaian', 'label' => 'No Pemakaian'],
             ['key' => 'No_kontrol', 'label' => 'No Kontrol'],
-            ['key' => 'meter_gabungan', 'label' => 'Meter Awalㅤ|ㅤMeter Akhir', 'class' => 'text-center'],
-            ['key' => 'JumlahPakai', 'label' => 'Jumlah Pakai', 'class' => 'text-center'],
+            // ['key' => 'meter_gabungan', 'label' => 'Meter Awalㅤ|ㅤMeter Akhir', 'class' => 'text-center'],
+            // ['key' => 'JumlahPakai', 'label' => 'Jumlah Pakai', 'class' => 'text-center'],
             ['key' => 'biaya_gabungan', 'label' => 'Biaya Bebanㅤ|ㅤBiaya Pemakaian', 'class' => 'text-center'], // Kolom baru untuk Biaya Beban, Biaya Pemakaian, dan Status Pembayaran
             ['key' => 'actions', 'label' => 'Aksi', 'class' => 'text-center'],
         ];

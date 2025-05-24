@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,9 +18,10 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 </head>
+
 <body class="min-h-screen font-sans antialiased bg-gray-200 dark:bg-base-200">
     {{-- NAVBAR mobile only --}}
-    <x-mary-nav sticky full-width>
+    <x-mary-nav sticky full-width class="bg-gray-200 dark:bg-base-200 border-b-0"> <!-- bg-gray-200 dark:bg-base-200 = untuk dark/light mode -->
         <x-slot:brand>
             <div class="ml-5 pt-5">
                 <img src="{{asset('img/Logo_PLN.svg')}}" alt="" width="90">
@@ -31,11 +33,11 @@
             </label>
         </x-slot:actions>
     </x-mary-nav>
-    
+
     {{-- MAIN --}}
     <x-mary-main full-width>
         {{-- Sidebar hanya muncul pada layar mobile --}}
-        <x-slot:sidebar sticky drawer="main-drawer" collapsible class="bg-base-200 lg:hidden">
+        <x-slot:sidebar sticky drawer="main-drawer" collapsible class="bg-white dark:bg-base-200 lg:hidden">
             {{-- Activates the menu item when a route matches the `link` property --}}
             <x-mary-menu activate-by-route>
                 <x-mary-menu-item title="Home" icon="o-home" link="###" />
@@ -51,21 +53,22 @@
         <x-slot:content>
             <!-- Page Heading -->
             @if (isset($header))
-                <header>
-                    <div>
-                        {{ $header }}
-                    </div>
-                </header>
+            <header>
+                <div>
+                    {{ $header }}
+                </div>
+            </header>
             @endif
             {{ $slot }}
         </x-slot:content>
     </x-mary-main>
- 
+
     {{-- Toast --}}
     <x-mary-toast />
 
     <x-mary-spotlight />
 
-    @livewireScripts 
+    @livewireScripts
 </body>
+
 </html>

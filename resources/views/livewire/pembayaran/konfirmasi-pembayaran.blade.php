@@ -84,7 +84,13 @@ new class extends Component {
             $this->MetodePembayaran = 'Tunai'; // Reset metode pembayaran setiap kali modal dibuka
             $this->konfirmasiModal = true;
         } else {
-            $this->toast(type: 'error', title: 'Data tidak ditemukan', description: 'Data pembayaran tidak ditemukan.', position: 'toast-top toast-end', timeout: 3000);
+            // dd($id);sd
+            $this->toast(
+                type: 'error',
+                title: 'Error!',
+                description: 'Data pembayaran tidak ditemukan.',
+                timeout: 3000
+            );
         }
     }
 
@@ -141,18 +147,18 @@ new class extends Component {
                 <!-- Info Tagihan -->
                 <div class="space-y-4">
                     <x-mary-input label="No. Kontrol" wire:model="No_Kontrol" readonly
-                        class="text-black dark:text-white" />
+                        class="" />
                     <x-mary-input label="No. Pemakaian" wire:model="No_Pemakaian" readonly
-                        class="text-black dark:text-white" />
+                        class="" />
                     <x-mary-input label="Total Tagihan (Rp)" wire:model="TotalTagihan" readonly prefix="Rp"
                         thousands-separator="." decimal-separator=","
-                        class="text-lg font-semibold text-black dark:text-white" />
+                        class="text-lg font-semibold " />
                 </div>
 
                 <!-- Detail Pembayaran -->
                 <div class="space-y-4">
                     <x-mary-input label="Metode Pembayaran" wire:model="MetodePembayaran" value="Tunai"
-                        icon="o-credit-card" class="text-black dark:text-white" />
+                        icon="o-credit-card" class="" />
 
                     <x-mary-input label="Uang Bayar" wire:model.live="UangBayar" type="text" prefix="Rp"
                         thousands-separator="." decimal-separator=","

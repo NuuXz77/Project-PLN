@@ -8,7 +8,7 @@
         </x-slot:actions>
     </x-mary-header>
 
-    <x-mary-table class="bg-white dark:bg-base-100" :headers="$headers" :rows="$transaksi" with-pagination per-page="perPage"
+    <x-mary-table class="bg-white dark:bg-base-100 [&_thead]:text-gray-500" :headers="$headers" :rows="$transaksi" with-pagination per-page="perPage"
         :per-page-values="[5, 10, 20]">
         <!-- Custom Kolom Nomor -->
         @scope('row_number', $row)

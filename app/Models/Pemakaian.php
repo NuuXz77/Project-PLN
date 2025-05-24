@@ -27,4 +27,9 @@ class Pemakaian extends Model
     {
         return $this->belongsTo(Pelanggan::class, 'No_kontrol', 'No_Kontrol');
     }
+
+    public function pembayaran()
+    {
+        return $this->hasOne(Pembayaran::class, 'ID_Pemakaian', 'ID_Pemakaian');
+    }
 }

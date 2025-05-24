@@ -1,17 +1,17 @@
 <div>
-    <x-mary-header title="Tarif" subtitle="Kelola data tarif listrik pelanggan dengan mudah." separator progress-indicator>
+    <x-mary-header title="Users" subtitle="Kelola data pengguna dengan mudah." separator progress-indicator>
         <x-slot:middle class="!justify-end">
-            <livewire:pelanggan.search-pelanggan name="search-pelanggan"/>
+            <livewire:users.search-users name="search-users"/>
         </x-slot:middle>
         <x-slot:actions>
-            <livewire:pelanggan.filter-pelanggan name="filterDraw"/>
-            <livewire:tarif.add-tarif name="addModal" />
+            {{-- <livewire:users.filter-users name="filterDraw"/> --}}
+            <livewire:users.add-user />
         </x-slot:actions>
     </x-mary-header>
 
     <x-mary-table class="bg-white dark:bg-base-100 [&_thead]:text-gray-500" 
         :headers="$headers" 
-        :rows="$tarif"
+        :rows="$users"
         with-pagination
         per-page="perPage"
         :per-page-values="[3, 5, 10]"
@@ -19,11 +19,11 @@
         <!-- Custom Kolom Nomor -->
         @scope('row_number', $row)
             <span>{{ $row['number'] }}</span>
-            @endscope
+        @endscope
             
-            <!-- Kolom Status Pembayaran -->
-        @scope('cell_Daya', $tarif)
-            <span>{{ $tarif['Daya'] }} VA</span>
+        <!-- Kolom Role -->
+        @scope('cell_role', $user)
+            <x-mary-badge :value="$user['role']" class="capitalize" />
         @endscope
 
         <!-- Custom Kolom Aksi -->
@@ -32,20 +32,14 @@
                 <x-slot:trigger>
                     <x-mary-button icon="m-ellipsis-vertical" class="bg-transparent dark:bg-transparent border-none" />
                 </x-slot:trigger>
-
-                <x-mary-menu-item
-                    icon="o-eye"
-                    wire:click="$dispatch('showModal', { id: '{{ $row['ID_Tarif'] }}' })"
-                    spiner
-                />
                 <x-mary-menu-item
                     icon="o-pencil-square"
-                    wire:click="$dispatch('showEditModal', { id: '{{ $row['ID_Tarif'] }}' })"
+                    wire:click="$dispatch('showEditModal', { id: '{{ $row['id'] }}' })"
                     spiner
                 />
                 <x-mary-menu-item
                     icon="o-trash"
-                    wire:click="$dispatch('showDeleteModal', { id: '{{ $row['ID_Tarif'] }}', no: '{{ $row['No_Tarif'] }}' })"
+                    wire:click="$dispatch('showDeleteModal', { id: '{{ $row['id'] }}' })"
                     spiner
                 />
             </x-mary-dropdown>
@@ -53,12 +47,12 @@
 
         <!-- Tampilkan pesan jika data kosong -->
         <x-slot:empty>
-            <x-mary-icon name="o-cube" label="Data Tarif Tidak Tersedia." />
+            <x-mary-icon name="o-user" label="Data User Tidak Tersedia." />
         </x-slot:empty>
     </x-mary-table>
 
     <!-- Komponen modal untuk melihat, mengedit, dan menghapus data -->
-    <livewire:tarif.show-tarif name="viewModal" />
-    <livewire:tarif.edit-tarif name="editModal" />
-    <livewire:tarif.delete-tarif name="deleteModal" />
+    {{-- <livewire:users.show-user name="viewModal" /> --}}
+    <livewire:users.edit-user name="editModal" />
+    <livewire:users.delete-user name="deleteModal" />
 </div>

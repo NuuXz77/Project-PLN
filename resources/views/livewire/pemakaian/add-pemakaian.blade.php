@@ -81,7 +81,17 @@ new class extends Component {
             $tanggalPembuatan = $pelanggan->created_at->format('dmY');
             $tahunIni = now()->format('Y');
 
-            $this->No_Pemakaian = "PMK/{$namaPelanggan}-{$tanggalPembuatan}/{$tahunIni}";
+            $baseNumber = "PMK/{$namaPelanggan}-{$tanggalPembuatan}/{$tahunIni}";
+
+            // Cari jumlah pemakaian dengan nomor yang sama sebelumnya
+            $count = Pemakaian::where('No_Pemakaian', 'like', $baseNumber . '%')->count();
+
+            // Jika ada yang sama, tambahkan nomor urut
+            if ($count > 0) {
+                $this->No_Pemakaian = $baseNumber . '-' . str_pad($count + 1, 3, '0', STR_PAD_LEFT);
+            } else {
+                $this->No_Pemakaian = $baseNumber;
+            }
         }
     }
 
@@ -111,16 +121,7 @@ new class extends Component {
             'StatusPembayaran' => $this->StatusPembayaran,
         ]);
         // Toast sukses
-        $this->toast(
-            type: 'success',
-            title: 'It is done!',
-            description: 'Data Pemakaian Berhasil Di Tambahkan!',
-            position: 'toast-top toast-end',
-            icon: 'o-information-circle',
-            css: 'alert-info',
-            timeout: 3000,
-            redirectTo: null
-        );
+        $this->toast(type: 'success', title: 'It is done!', description: 'Data Pemakaian Berhasil Di Tambahkan!', position: 'toast-top toast-end', icon: 'o-information-circle', css: 'alert-info', timeout: 3000, redirectTo: null);
 
         $this->resetForm();
         $this->refreshTable();
@@ -143,57 +144,50 @@ new class extends Component {
             <div class="grid grid-cols-12 gap-4">
 
                 <div class="col-span-12">
-                    <x-mary-input label="No Pemakaian" wire:model="No_Pemakaian" readonly class="text-black dark:text-white"/>
+                    <x-mary-input label="No Pemakaian" wire:model="No_Pemakaian" readonly
+                        class="" />
                 </div>
 
                 <div class="col-span-6">
-                    <x-mary-select 
-                        label="Nomor Kontrol"
-                        wire:model="No_Kontrol"
-                        :options="$pelangganList"
-                        option-value="No_Kontrol"
-                        option-label="Nama"
-                        placeholder="Pilih Pelanggan"
-                        wire:change="generateNoPemakaian"
-                    class="text-black dark:text-white"/>
+                    <x-mary-select label="Nomor Kontrol" wire:model="No_Kontrol" :options="$pelangganList"
+                        option-value="No_Kontrol" option-label="Nama" placeholder="Pilih Pelanggan"
+                        wire:change="generateNoPemakaian" class="" />
                 </div>
 
                 <div class="col-span-6">
-                    <x-mary-input label="Tanggal Catat" type="date" wire:model="TanggalCatat" class="text-black dark:text-white"/>
+                    <x-mary-input label="Tanggal Catat" type="date" wire:model="TanggalCatat"
+                        class="" />
                 </div>
 
                 <div class="col-span-6">
-                    <x-mary-input label="Meter Awal" type="number" wire:model.live="MeterAwal" class="text-black dark:text-white"/>
+                    <x-mary-input label="Meter Awal" type="number" wire:model.live="MeterAwal"
+                        class="" />
                 </div>
 
                 <div class="col-span-6">
-                    <x-mary-input label="Meter Akhir" type="number" wire:model.live="MeterAkhir" class="text-black dark:text-white"/>
+                    <x-mary-input label="Meter Akhir" type="number" wire:model.live="MeterAkhir"
+                        class="" />
                 </div>
 
                 <div class="col-span-6">
-                    <x-mary-input label="Jumlah Pakai" type="number" wire:model="JumlahPakai" readonly class="text-black dark:text-white"/>
+                    <x-mary-input label="Jumlah Pakai" type="number" wire:model="JumlahPakai" readonly
+                        class="" />
                 </div>
 
                 <div class="col-span-6">
-                    <x-mary-input label="Biaya Beban Pemakai" type="number" wire:model="BiayaBebanPemakaian" readonly class="text-black dark:text-white"/>
+                    <x-mary-input label="Biaya Beban Pemakai" type="number" wire:model="BiayaBebanPemakaian" readonly
+                        class="" />
                 </div>
 
                 <div class="col-span-6">
-                    <x-mary-input label="Biaya Pemakaian" type="number" wire:model="BiayaPemakaian" readonly class="text-black dark:text-white"/>
+                    <x-mary-input label="Biaya Pemakaian" type="number" wire:model="BiayaPemakaian" readonly
+                        class="" />
                 </div>
 
                 <div class="col-span-6">
-                    <x-mary-select 
-                        label="Status Pembayaran"
-                        wire:model="StatusPembayaran"
-                        :options="[
-                            ['id' => 'Lunas', 'name' => 'Lunas'],
-                            ['id' => 'Belum Lunas', 'name' => 'Belum Lunas']
-                        ]"
-                        option-value="id"
-                        option-label="name"
-                        placeholder="Pilih Status"
-                    class="text-black dark:text-white"/>
+                    <x-mary-select label="Status Pembayaran" wire:model="StatusPembayaran" :options="[['id' => 'Lunas', 'name' => 'Lunas'], ['id' => 'Belum Lunas', 'name' => 'Belum Lunas']]"
+                        option-value="id" option-label="name" placeholder="Pilih Status"
+                        class="" />
                 </div>
 
             </div>
