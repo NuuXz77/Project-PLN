@@ -97,17 +97,17 @@ new class extends Component {
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <p class="text-sm text-gray-500 dark:text-gray-400">No. Transaksi</p>
-                                <p class="font-medium">{{ $transaksiData->No_Transaksi }}</p>
+                                <p class="font-medium text-black dark:text-white">{{ $transaksiData->No_Transaksi }}</p>
                             </div>
                             <div>
                                 <p class="text-sm text-gray-500 dark:text-gray-400">Tanggal</p>
-                                <p class="font-medium">
+                                <p class="font-medium text-black dark:text-white">
                                     {{ \Carbon\Carbon::parse($transaksiData->TanggalPembayaran)->format('d M Y H:i') }}
                                 </p>
                             </div>
                             <div>
                                 <p class="text-sm text-gray-500 dark:text-gray-400">Total Tagihan</p>
-                                <p class="font-medium text-primary">
+                                <p class="font-medium text-black dark:text-white text-primary">
                                     Rp {{ number_format($transaksiData->TotalTagihan, 0, ',', '.') }}
                                 </p>
                             </div>
@@ -125,7 +125,7 @@ new class extends Component {
                             </div>
                             <div class="col-span-2">
                                 <p class="text-sm text-gray-500 dark:text-gray-400">Metode Pembayaran</p>
-                                <p class="font-medium">
+                                <p class="font-medium text-black dark:text-white">
                                     {{ $transaksiData->MetodePembayaran }}
                                 </p>
                             </div>
@@ -143,19 +143,19 @@ new class extends Component {
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <p class="text-sm text-gray-500 dark:text-gray-400">No. Kontrol</p>
-                                <p class="font-medium">{{ $pelangganData->No_Kontrol }}</p>
+                                <p class="font-medium text-black dark:text-white">{{ $pelangganData->No_Kontrol }}</p>
                             </div>
                             <div>
                                 <p class="text-sm text-gray-500 dark:text-gray-400">Nama</p>
-                                <p class="font-medium">{{ $pelangganData->Nama }}</p>
+                                <p class="font-medium text-black dark:text-white">{{ $pelangganData->Nama }}</p>
                             </div>
                             <div class="col-span-2">
                                 <p class="text-sm text-gray-500 dark:text-gray-400">Alamat</p>
-                                <p class="font-medium">{{ $pelangganData->Alamat }}</p>
+                                <p class="font-medium text-black dark:text-white">{{ $pelangganData->Alamat }}</p>
                             </div>
                             <div>
                                 <p class="text-sm text-gray-500 dark:text-gray-400">Jenis Pelanggan</p>
-                                <p class="font-medium">{{ $pelangganData->Jenis_Plg }}</p>
+                                <p class="font-medium text-black dark:text-white">{{ $pelangganData->Jenis_Plg }}</p>
                             </div>
                         </div>
                     </div>
@@ -175,25 +175,25 @@ new class extends Component {
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
                                     <p class="text-sm text-gray-500 dark:text-gray-400">No. Pemakaian</p>
-                                    <p class="font-medium">{{ $pemakaianData->No_Pemakaian }}</p>
+                                    <p class="font-medium text-black dark:text-white">{{ $pemakaianData->No_Pemakaian }}</p>
                                 </div>
                                 <div>
                                     <p class="text-sm text-gray-500 dark:text-gray-400">Periode</p>
-                                    <p class="font-medium">
+                                    <p class="font-medium text-black dark:text-white">
                                         {{ \Carbon\Carbon::parse($pemakaianData->TanggalCatat)->format('d M Y') }}
                                     </p>
                                 </div>
                                 <div>
                                     <p class="text-sm text-gray-500 dark:text-gray-400">Meter Awal</p>
-                                    <p class="font-medium">{{ $pemakaianData->MeterAwal }} kWh</p>
+                                    <p class="font-medium text-black dark:text-white">{{ $pemakaianData->MeterAwal }} kWh</p>
                                 </div>
                                 <div>
                                     <p class="text-sm text-gray-500 dark:text-gray-400">Meter Akhir</p>
-                                    <p class="font-medium">{{ $pemakaianData->MeterAkhir }} kWh</p>
+                                    <p class="font-medium text-black dark:text-white">{{ $pemakaianData->MeterAkhir }} kWh</p>
                                 </div>
                                 <div>
                                     <p class="text-sm text-gray-500 dark:text-gray-400">Pemakaian</p>
-                                    <p class="font-medium text-primary">
+                                    <p class="font-medium text-black dark:text-white text-primary">
                                         {{ $pemakaianData->JumlahPakai }} kWh
                                     </p>
                                 </div>
@@ -213,21 +213,21 @@ new class extends Component {
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
                                     <p class="text-sm text-gray-500 dark:text-gray-400">No. Pembayaran</p>
-                                    <p class="font-medium">{{ $pembayaranData->No_Pembayaran }}</p>
+                                    <p class="font-medium text-black dark:text-white">{{ $pembayaranData->No_Pembayaran }}</p>
                                 </div>
                                 <div>
                                     <p class="text-sm text-gray-500 dark:text-gray-400">Stand Meter</p>
-                                    <p class="font-medium">{{ $pembayaranData->StandMeter }}</p>
+                                    <p class="font-medium text-black dark:text-white">{{ $pembayaranData->StandMeter }}</p>
                                 </div>
                                 <div>
                                     <p class="text-sm text-gray-500 dark:text-gray-400">Biaya Admin</p>
-                                    <p class="font-medium">
+                                    <p class="font-medium text-black dark:text-white">
                                         Rp {{ number_format($pembayaranData->Admin, 0, ',', '.') }}
                                     </p>
                                 </div>
                                 <div>
                                     <p class="text-sm text-gray-500 dark:text-gray-400">Total Bayar</p>
-                                    <p class="font-medium text-primary">
+                                    <p class="font-medium text-black dark:text-white text-primary">
                                         Rp {{ number_format($pembayaranData->TotalBayar, 0, ',', '.') }}
                                     </p>
                                 </div>
@@ -249,7 +249,7 @@ new class extends Component {
             <x-mary-button 
                 label="Batal" 
                 @click="$wire.printModal = false" 
-                class="btn-ghost" 
+                class="btn-danger" 
             />
             <x-mary-button
                 label="Cetak Sekarang" 

@@ -30,6 +30,6 @@ class Pemakaian extends Model
 
     public function pembayaran()
     {
-        return $this->belongsTo(Pembayaran::class, 'ID_Pembayaran');
+        return $this->hasOne(Pembayaran::class, 'ID_Pemakaian', 'ID_Pemakaian');
     }
 }

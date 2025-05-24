@@ -11,6 +11,8 @@
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.6",
         "livewire/volt": "^1.7",
+        "mallardduck/blade-lucide-icons": "^1.23",
+        "owenvoke/blade-fontawesome": "^2.9",
         "robsontenorio/mary": "^1.41",
         "themesberg/flowbite-blade-icons": "^1.1"
     },

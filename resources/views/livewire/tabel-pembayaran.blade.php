@@ -7,7 +7,7 @@
             {{-- <livewire:pembayaran.add-pembayaran name="addModal" /> --}}
         </x-slot:actions>
     </x-mary-header>
-    <x-mary-table class="bg-white dark:bg-base-100" :headers="$headers" :rows="$pembayaran" with-pagination
+    <x-mary-table class="bg-white dark:bg-base-100 [&_thead]:text-gray-500" :headers="$headers" :rows="$pembayaran" with-pagination
     per-page="perPage" :per-page-values="[5, 10, 20]">
         @scope('cell_No_Pembayaran', $pembayaran)
         {!! $pembayaran->No_Pembayaran !!}
@@ -38,7 +38,7 @@
                 wire:click="$dispatch('showDeleteModal', { id: '{{ $pembayaran->ID_Pembayaran }}' })" />
         </x-mary-dropdown> --}}
         @if($pembayaran->StatusPembayaran == "Belum Lunas")
-            {{$pembayaran}}
+            {{-- {{$pembayaran}} --}}
             <x-mary-button
                 label="Konfirmasi"
                 class="btn-success"

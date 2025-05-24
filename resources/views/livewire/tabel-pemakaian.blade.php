@@ -58,7 +58,7 @@
     </style>
 
     <div class="responsive-table">
-        <x-mary-table class="pemakaian-table bg-white dark:bg-base-100" :headers="$headers" :rows="$pemakaian" 
+        <x-mary-table class="pemakaian-table bg-white dark:bg-base-100 [&_thead]:text-gray-500" :headers="$headers" :rows="$pemakaian" 
                       with-pagination per-page="perPage" :per-page-values="[5, 10, 20]">
 
             <!-- Kolom Meter -->
