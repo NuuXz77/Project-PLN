@@ -18,6 +18,6 @@ new class extends Component
 
 <div>
     <button wire:click="logout">
-        <x-mary-menu-item title="Logout" icon="o-archive-box"/>
+        <x-mary-menu-item icon="o-arrow-left-on-rectangle" class="hover:bg-gray-100 hover:text-black"/>
     </button>
 </div>

@@ -1,36 +1,53 @@
 <?php
 
 use Livewire\Volt\Component;
+use App\Models\Pelanggan;
+use App\Models\Pemakaian;
+use App\Models\Transaksi;
+use App\Models\Pembayaran;
 
 new class extends Component {
-    //
+    public $pelangganCount;
+    public $pemakaianCount;
+    public $pembayaranCount;
+    public $transaksiCount;
+
+    public function mount() //menambahkan ini untuk menjumlahkan semua data yang ada
+    {
+        $this->pelangganCount = Pelanggan::count();
+        $this->pemakaianCount = Pemakaian::count();
+        $this->pembayaranCount = Pembayaran::count();
+        $this->transaksiCount = Transaksi::count();
+    }
 }; ?>
 
 <div>
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <x-mary-stat title="Pelanggan" value="10" icon="o-users" tooltip="Total Pelanggan" />
-        
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+        <x-mary-stat
+            title="Pelanggan"
+            value="{{ number_format($pelangganCount) }}"
+            icon="o-users"
+            tooltip="Total Pelanggan" />
+
         <x-mary-stat
             title="Pemakaian"
-            description="Keseluruhan"
-            value="Bos"
-            icon="o-users"
-            tooltip-bottom="Keseluruhan Pemakaian" />
-        
+            description="Total Data"
+            value="{{ number_format($pemakaianCount) }}"
+            icon="o-bolt"
+            tooltip-bottom="Total Pemakaian" />
+
         <x-mary-stat
-            title="Lost"
-            description="This month"
-            value="34"
-            icon="o-arrow-trending-down"
-            tooltip-left="Ops!" />
-        
+            title="Pembayaran"
+            description="Total Data"
+            value="{{ number_format($pembayaranCount) }}"
+            icon="o-credit-card"
+            tooltip-left="Total Pembayaran" />
+
         <x-mary-stat
-            title="Sales"
-            description="This month"
-            value="22.124"
-            icon="o-arrow-trending-down"
-            class="text-orange-500"
-            color="text-pink-500"
-            tooltip-right="Gosh!" />
+            title="Transaksi"
+            description="Total Data"
+            value="{{ number_format($transaksiCount) }}"
+            icon="o-receipt-percent"
+            tooltip-right="Total Transaksi" />
     </div>
 </div>

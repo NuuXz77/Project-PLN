@@ -91,7 +91,7 @@ new class extends Component {
                 description: 'Data pembayaran tidak ditemukan.',
                 timeout: 3000
             );
-        }
+        } 
     }
 
     public function save()
