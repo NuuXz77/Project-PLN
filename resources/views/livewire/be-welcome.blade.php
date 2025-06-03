@@ -2,19 +2,19 @@
     <div class="max-w-7xl mx-auto">
         <div class="rounded-xl shadow-lg overflow-hidden bg-gray-200 dark:bg-base-200">
             <!-- Header Section -->
-            <div class="bg-indigo-600 px-6 py-4 print:hidden">
+            <div class="bg-primary px-6 py-4 print:hidden">
                 <div class="flex items-center justify-between">
                     <h1 class="text-2xl font-bold text-white">Payment Search</h1>
                     <div class="relative w-64">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <svg class="h-5 w-5 text-indigo-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg class="h-5 w-5 text-primary-content/80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
                         </div>
                         <x-mary-input wire:model.live.debounce.500ms="search"
                             placeholder="Search by Control No only..."
-                            class="w-full pl-10 bg-indigo-500 text-white placeholder-indigo-300 border-0 focus:ring-2 focus:ring-indigo-300" />
+                            class="w-full pl-10 bg-primary/90 text-white placeholder-primary-content/80 border-0 focus:ring-2 focus:ring-primary-content" />
                     </div>
                 </div>
             </div>
@@ -24,139 +24,168 @@
                 @if($search)
                 @if($pembayarans->count() > 0)
                 <div class="flex flex-col items-center">
-                    <!-- Struk Pembayaran (diperbaiki untuk cetak) -->
                     @foreach($pembayarans as $pembayaran)
-                    <div class="w-full max-w-md bg-white rounded-lg shadow-md p-6 mb-6 print:shadow-none print:border-0 print:p-0 print:m-0 print:max-w-full print:w-full">
+                    <div class="w-full max-w-4xl bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-6 print:shadow-none print:border-0 print:p-0 print:m-0 print:max-w-full print:w-full border border-gray-100 dark:border-gray-700">
                         <!-- Header Struk untuk cetak -->
-                        <div class="text-center mb-6 print:mb-4 print:border-b print:border-gray-300 print:pb-4">
-                            <h2 class="text-xl font-bold print:text-2xl">STRUK PEMBAYARAN</h2>
-                            <p class="text-sm text-gray-500 print:text-base">No. Transaksi: TRX-{{ $pembayaran->ID_Pembayaran }}-{{ $pembayaran->No_Kontrol }}</p>
-                            <p class="text-xs text-gray-400 mt-1 print:text-sm">{{ now()->timezone('Asia/Jakarta')->format('d/m/Y H:i:s') }}</p>
-                        </div>
-
-                        <!-- Garis pemisah -->
-                        <div class="border-t-2 border-dashed border-gray-300 my-4 print:border-t print:border-solid"></div>
-
-                        <!-- Info Pelanggan -->
-                        <div class="mb-4 print:mb-3">
-                            <h3 class="font-semibold text-gray-700 print:text-lg print:font-bold">INFORMASI PELANGGAN</h3>
-                            <div class="grid grid-cols-2 gap-2 mt-2 print:grid-cols-3 print:gap-4">
+                        <div class="bg-primary text-primary-content p-6 rounded-t-xl print:rounded-t-none mb-6 print:mb-4">
+                            <div class="flex items-center justify-between">
                                 <div>
-                                    <p class="text-sm text-gray-600 print:text-base">No. Kontrol</p>
-                                    <p class="font-medium print:text-lg">{{ $pembayaran->No_Kontrol }}</p>
+                                    <h2 class="text-2xl font-bold">STRUK PEMBAYARAN</h2>
+                                    <p class="text-primary-content/80">No. Transaksi: TRX-{{ $pembayaran->ID_Pembayaran }}-{{ $pembayaran->No_Kontrol }}</p>
                                 </div>
-                                <div class="print:col-span-2">
-                                    <p class="text-sm text-gray-600 print:text-base">Alamat</p>
-                                    <p class="font-medium print:text-lg">Jl. Contoh No. 123, Kota Anda</p>
-                                </div>
-                                <div>
-                                    <p class="text-sm text-gray-600 print:text-base">Jenis Pelanggan</p>
-                                    <p class="font-medium print:text-lg">Rumah Tangga</p>
+                                <div class="bg-white/10 p-2 rounded-full">
+                                    <x-mary-icon name="o-document-text" class="w-8 h-8" />
                                 </div>
                             </div>
+                            <p class="text-xs text-primary-content/60 mt-2 print:text-sm">{{ now()->timezone('Asia/Jakarta')->format('d/m/Y H:i:s') }}</p>
                         </div>
 
-                        <!-- Detail Pembayaran -->
-                        <div class="mb-6 print:mb-4">
-                            <h3 class="font-semibold text-gray-700 print:text-lg print:font-bold">DETAIL PEMBAYARAN</h3>
-                            <div class="mt-2 space-y-2 print:space-y-3">
-                                <div class="flex justify-between print:items-center">
-                                    <span class="text-gray-600 print:text-base">Total Bayar</span>
-                                    <span class="font-medium print:text-xl">Rp {{ number_format($pembayaran->TotalBayar, 0, ',', '.') }}</span>
+                        <!-- Info Pelanggan -->
+                        <div class="flex flex-col md:flex-row gap-6 mb-6 print:mb-4">
+                            <div class="flex-1 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 p-5">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="bg-primary/10 p-2 rounded-lg">
+                                        <x-mary-icon name="o-user" class="text-primary w-6 h-6" />
+                                    </div>
+                                    <h3 class="font-bold text-lg">Informasi Pelanggan</h3>
                                 </div>
-                                <div class="flex justify-between print:items-center">
-                                    <span class="text-gray-600 print:text-base">Status</span>
-                                    <span class="font-medium {{ $pembayaran->pemakaian && $pembayaran->pemakaian->StatusPembayaran === 'Lunas' ? 'text-green-600' : 'text-red-600' }} print:text-lg">
-                                        {{ $pembayaran->pemakaian ? $pembayaran->pemakaian->StatusPembayaran : '-' }}
-                                    </span>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400">No. Kontrol</p>
+                                        <p class="font-medium">{{ $pembayaran->No_Kontrol }}</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400">PLN</p>
+                                        <p class="font-medium">{{ $pembayaran->Nama }}</p>
+                                    </div>
+                                    <div class="col-span-2">
+                                        <p class="text-sm text-gray-500 dark:text-gray-400">Alamat</p>
+                                        <p class="font-medium">{{ $pembayaran->Alamat }}/p>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400">Jenis Pelanggan</p>
+                                        <p class="font-medium">{{ $pembayaran->Jenis_Plg }}</p>
+                                    </div>
                                 </div>
-                                <div class="flex justify-between print:items-center">
-                                    <span class="text-gray-600 print:text-base">Tanggal Bayar</span>
-                                    <span class="font-medium print:text-lg">
-                                        {{ optional($pembayaran->created_at)->format('d/m/Y H:i') ?? '-' }}
-                                    </span>
+                            </div>
+
+                            <!-- Detail Pembayaran -->
+                            <div class="flex-1 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 p-5">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="bg-primary/10 p-2 rounded-lg">
+                                        <x-mary-icon name="o-credit-card" class="text-primary w-6 h-6" />
+                                    </div>
+                                    <h3 class="font-bold text-lg">Detail Pembayaran</h3>
+                                </div>
+                                <div class="space-y-4">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-600 dark:text-gray-400">Total Bayar</span>
+                                        <span class="font-medium text-primary text-lg">Rp {{ number_format($pembayaran->TotalBayar, 0, ',', '.') }}</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-600 dark:text-gray-400">Status</span>
+                                        <x-mary-badge 
+                                            :value="$pembayaran->pemakaian ? $pembayaran->pemakaian->StatusPembayaran : '-'" 
+                                            @class([
+                                                'badge-success' => $pembayaran->pemakaian && $pembayaran->pemakaian->StatusPembayaran === 'Lunas',
+                                                'badge-warning' => $pembayaran->pemakaian && $pembayaran->pemakaian->StatusPembayaran === 'Menunggu Konfirmasi',
+                                                'badge-error' => !$pembayaran->pemakaian || $pembayaran->pemakaian->StatusPembayaran === 'Gagal',
+                                            ])
+                                            class="badge-sm"
+                                        />
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-600 dark:text-gray-400">Tanggal Bayar</span>
+                                        <span class="font-medium">
+                                            {{ optional($pembayaran->created_at)->format('d/m/Y H:i') ?? '-' }}
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Informasi Pemakaian -->
                         @if($pembayaran->pemakaian)
-                        <div class="mb-6 print:mb-4">
-                            <h3 class="font-semibold text-gray-700 print:text-lg print:font-bold">INFORMASI PEMAKAIAN</h3>
-                            <div class="mt-2 space-y-2 print:space-y-3">
-                                <div class="flex justify-between print:items-center">
-                                    <span class="text-gray-600 print:text-base">No. Pemakaian</span>
-                                    <span class="font-medium print:text-lg">PMK-{{ $pembayaran->pemakaian->ID_Pemakaian }}</span>
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 p-5 mb-6 print:mb-4">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="bg-primary/10 p-2 rounded-lg">
+                                    <x-mary-icon name="o-bolt" class="text-primary w-6 h-6" />
                                 </div>
-                                <div class="flex justify-between print:items-center">
-                                    <span class="text-gray-600 print:text-base">Pemakaian Awal</span>
-                                    <span class="font-medium print:text-lg">10 kWh</span>
+                                <h3 class="font-bold text-lg">Informasi Pemakaian</h3>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">No. Pemakaian</p>
+                                    <p class="font-medium">PMK-{{ $pembayaran->pemakaian->ID_Pemakaian }}</p>
                                 </div>
-                                <div class="flex justify-between print:items-center">
-                                    <span class="text-gray-600 print:text-base">Pemakaian</span>
-                                    <span class="font-medium print:text-lg">190 kWh</span>
+                                <div>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">Periode</p>
+                                    <p class="font-medium">{{ optional($pembayaran->pemakaian->created_at)->format('d M Y') ?? '-' }}</p>
                                 </div>
-                                <div class="flex justify-between print:items-center">
-                                    <span class="text-gray-600 print:text-base">Periode</span>
-                                    <span class="font-medium print:text-lg">{{ optional($pembayaran->pemakaian->created_at)->format('d M Y') ?? '-' }}</span>
+                                <div>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">Pemakaian Awal</p>
+                                    <p class="font-medium">{{ $pembayaran->pemakaian-MeterAwal }}</p>
                                 </div>
-                                <div class="flex justify-between print:items-center">
-                                    <span class="text-gray-600 print:text-base">Pemakaian Akhir</span>
-                                    <span class="font-medium print:text-lg">200 kWh</span>
+                                <div>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">Pemakaian Akhir</p>
+                                    <p class="font-medium">{{ $pembayaran->pemakaian-MeterAkhir }}</p>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">Pemakaian</p>
+                                    <p class="font-medium text-primary">gg</p>
                                 </div>
                             </div>
                         </div>
                         @endif
 
                         <!-- Total -->
-                        <div class="bg-gray-100 p-3 rounded-lg mb-6 print:bg-gray-200 print:p-4 print:mb-4">
-                            <div class="flex justify-between font-bold text-lg print:text-xl">
-                                <span>TOTAL</span>
-                                <span>Rp {{ number_format($pembayaran->TotalBayar, 0, ',', '.') }}</span>
+                        <div class="bg-primary/10 p-4 rounded-lg mb-6 print:mb-4 border border-primary/20">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold text-lg">TOTAL PEMBAYARAN</span>
+                                <span class="font-bold text-2xl text-primary">Rp {{ number_format($pembayaran->TotalBayar, 0, ',', '.') }}</span>
                             </div>
                         </div>
 
                         <!-- Footer Struk -->
-                        <div class="text-center text-xs text-gray-500 print:text-sm print:mt-8">
+                        <div class="text-center text-sm text-gray-500 dark:text-gray-400 print:text-sm print:mt-8 border-t border-gray-200 dark:border-gray-700 pt-4">
                             <p>Terima kasih telah melakukan pembayaran</p>
                             <p class="mt-1">*Struk ini sah sebagai bukti pembayaran*</p>
                         </div>
 
                         <!-- Tombol Cetak (hanya muncul di layar) -->
-                        <div class="mt-6 flex justify-center print:hidden">
-                            <button onclick="window.print()" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 flex items-center">
-                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
-                                </svg>
-                                Cetak Struk
-                            </button>
+                        <div class="mt-6 flex justify-center print:hidden gap-3">
+                            <x-mary-button 
+                                label="Kembali" 
+                                @click="$wire.search = ''" 
+                                class="btn-ghost" 
+                            />
+                            <x-mary-button
+                                label="Cetak Struk" 
+                                icon-right="o-printer" 
+                                class="btn-primary" 
+                                onclick="window.print()"
+                            />
                         </div>
                     </div>
                     @endforeach
                 </div>
-
-                <!-- Pagination -->
-                <!-- <div class="mt-4 flex items-center justify-between">
-                    
-                </div> -->
                 @else
                 <div class="text-center py-12">
-                    <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
-                            d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <h3 class="mt-2 text-lg font-medium text-gray-200 dark:text-white">No payments found</h3>
-                    <p class="mt-1 text-sm text-gray-500">Try adjusting your search query</p>
+                    <x-mary-icon name="o-document-magnifying-glass" class="mx-auto h-12 w-12 text-gray-400" />
+                    <h3 class="mt-2 text-lg font-medium text-gray-900 dark:text-white">No payments found</h3>
+                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Try adjusting your search query</p>
+                    <x-mary-button 
+                        label="Kembali" 
+                        @click="$wire.search = ''" 
+                        class="btn-ghost mt-4" 
+                    />
                 </div>
                 @endif
                 @else
                 <div class="text-center py-12">
-                    <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
-                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                    <h3 class="mt-2 text-lg font-medium text-gray-900">Search for payments</h3>
-                    <p class="mt-1 text-sm text-gray-500">Enter a control number to search</p>
+                    <x-mary-icon name="o-magnifying-glass" class="mx-auto h-12 w-12 text-gray-400" />
+                    <h3 class="mt-2 text-lg font-medium text-gray-900 dark:text-white">Search for payments</h3>
+                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Enter a control number to search</p>
                 </div>
                 @endif
             </div>

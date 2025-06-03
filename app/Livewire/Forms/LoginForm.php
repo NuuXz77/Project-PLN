@@ -14,7 +14,7 @@ class LoginForm extends Form
 {
     #[Validate('required|string|email')]
     public string $email = '';
-
+    
     #[Validate('required|string')]
     public string $password = '';
 
@@ -29,15 +29,16 @@ class LoginForm extends Form
     public function authenticate(): void
     {
         $this->ensureIsNotRateLimited();
-
+        
         if (! Auth::attempt($this->only(['email', 'password']), $this->remember)) {
+            // dd($this->email);
             RateLimiter::hit($this->throttleKey());
-
+            
             throw ValidationException::withMessages([
                 'form.email' => trans('auth.failed'),
             ]);
         }
-
+        
         RateLimiter::clear($this->throttleKey());
     }
 

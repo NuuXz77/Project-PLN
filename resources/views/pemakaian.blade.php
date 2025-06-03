@@ -1,7 +1,5 @@
 <x-layouts.app>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl leading-tight">
-            <livewire:tabel-pemakaian/>
-        </h2>
+        <livewire:tabel-pemakaian />
     </x-slot>
 </x-layouts.app>

@@ -1,5 +1,5 @@
 <x-layouts.app>
     <x-slot name="header">
-        <livewire:tabel-transaksi />
+        <livewire:tabel-users />
     </x-slot>
 </x-layouts.app>

@@ -146,7 +146,7 @@ new class extends Component {
             <div class="grid grid-cols-12 gap-4">
                 <!-- No Tarif -->
                 <div class="col-span-6">
-                    <x-mary-input label="No Tarif" wire:model="No_Tarif" readonly class="text-black"/>
+                    <x-mary-input label="No Tarif" wire:model="No_Tarif" readonly class=""/>
                 </div>
                 <div class="col-span-6">
                     <x-mary-select
@@ -160,20 +160,20 @@ new class extends Component {
                         option-value="id"
                         option-label="name"
                         placeholder="Pilih Jenis Pelanggan"
-                        class="text-black"
+                        class=""
                     />
                 </div>
             </div>
 
             <div class="grid grid-cols-12 gap-4">
                 <div class="col-span-4">
-                    <x-mary-input label="Daya" wire:model="Daya" type="number" class="text-black" />
+                    <x-mary-input label="Daya" wire:model="Daya" type="number" class="" />
                 </div>
                 <div class="col-span-4">
-                    <x-mary-input label="Biaya Beban" wire:model="BiayaBeban" type="number" class="text-black" />
+                    <x-mary-input label="Biaya Beban" wire:model="BiayaBeban" type="number" class="" />
                 </div>
                 <div class="col-span-4">
-                    <x-mary-input label="Tarif KWH" wire:model="TarifKWH" type="number" class="text-black" />
+                    <x-mary-input label="Tarif KWH" wire:model="TarifKWH" type="number" class="" />
                 </div>
             </div>
 

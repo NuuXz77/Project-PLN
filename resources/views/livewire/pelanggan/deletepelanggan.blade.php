@@ -35,10 +35,10 @@ new class extends Component {
     {
         try {
             $pelanggan = Pelanggan::find($this->pelangganId);
+            $pelanggan->delete();
 
             if ($pelanggan) {
-                $pelanggan->delete();
-
+                // dd($pelanggan);
                 // Toast
                 $this->toast(
                     type: 'success',
@@ -63,6 +63,7 @@ new class extends Component {
                 );
             }
         } catch (\Exception $e) {
+            dd($e);
             $this->toast(
                 type: 'error',
                 title: 'Error!',

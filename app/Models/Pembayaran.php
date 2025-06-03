@@ -40,6 +40,6 @@ class Pembayaran extends Model
     // Model Pembayaran
     public function pemakaian()
     {
-        return $this->hasOne(Pemakaian::class, 'ID_Pembayaran', 'ID_Pembayaran');
+        return $this->belongsTo(Pemakaian::class, 'ID_Pemakaian', 'ID_Pemakaian');
     }
 }

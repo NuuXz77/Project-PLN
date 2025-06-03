@@ -5,8 +5,7 @@ use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
 
-new #[Layout('layouts.guest')] class extends Component
-{
+new #[Layout('layouts.guest')] class extends Component {
     public LoginForm $form;
 
     /**
@@ -14,6 +13,7 @@ new #[Layout('layouts.guest')] class extends Component
      */
     public function login(): void
     {
+        // dd($this->validate());
         $this->validate();
 
         $this->form->authenticate();
@@ -23,7 +23,8 @@ new #[Layout('layouts.guest')] class extends Component
         Session::flash('status', 'Login successful!');
         $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
     }
-}; ?>
+};
+?>
 
 <div>
     <!-- Session Status -->
@@ -31,26 +32,25 @@ new #[Layout('layouts.guest')] class extends Component
 
     <form wire:submit="login">
         {{-- Logo / Head --}}
-        <div>
-            <x-input-label for="judul" :value="__('Login Admin')" class="text-center font-bold text-4xl my-8" />
+        <div class="flex items-center justify-center h-20 p-14">
+            <div class="text-center">
+                <img src="{{ asset('img/logo_PLN.svg') }}" alt="logo pln" width="150" class="mx-auto">
+                <h1 class="text-3xl text-black dark:text-white mt-4">LOGIN</h1>
+            </div>
         </div>
-
         <!-- Email Address -->
         <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input wire:model="form.email" id="email" class="block mt-1 w-full !text-black" type="email"
-                name="email" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('form.email')" class="mt-2" />
+            <x-mary-input label="Email" icon="o-user" wire:model="form.email" id="email"
+                class="block mt-1 w-full text-black dark:text-white" type="email" name="email" required autofocus
+                autocomplete="username" />
+            {{-- <x-input-error :messages="$errors->get('form.email')" class="mt-2" /> --}}
         </div>
-
         <!-- Password -->
         <div class="mt-4 relative">
-            <x-input-label for="Password" :value="__('Password')" />
-            <x-mary-password id="password" wire:model="form.password"
-                type="password" name="password" required autocomplete="current-password" right />
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            <x-mary-password label="Password" id="password" wire:model="form.password" type="password" name="password"
+                required autocomplete="current-password" clearable class="text-black dark:text-white" />
+            {{-- <x-input-error :messages="$errors->get('form.password')" class="mt-2" /> --}}
         </div>
-
         <!-- Remember Me -->
         <div class="block mt-4">
             <label for="remember" class="inline-flex items-center">
@@ -71,7 +71,7 @@ new #[Layout('layouts.guest')] class extends Component
                 <span wire:loading class="loading loading-spinner text-primary"></span>
             </x-primary-button>
 
-            <div>
+            {{-- <div>
                 <div class="text-sm text-center text-gray-600 dark:text-gray-400">
                     Belum memiliki akun?
                     <a class="underline hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
@@ -92,26 +92,7 @@ new #[Layout('layouts.guest')] class extends Component
                     </a>
                 </div>
                 @endif
-            </div>
+            </div> --}}
         </div>
     </form>
-
-    <!-- Script untuk toggle password visibility -->
-    <script>
-        function togglePasswordVisibility() {
-            const passwordField = document.getElementById('password');
-            const showIcon = document.getElementById('show-icon');
-            const hideIcon = document.getElementById('hide-icon');
-
-            if (passwordField.type === 'password') {
-                passwordField.type = 'text';
-                showIcon.classList.add('hidden');
-                hideIcon.classList.remove('hidden');
-            } else {
-                passwordField.type = 'password';
-                hideIcon.classList.add('hidden');
-                showIcon.classList.remove('hidden');
-            }
-        }
-    </script>
 </div>
