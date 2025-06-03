@@ -49,42 +49,42 @@
             <x-mary-menu activate-by-route>
                 {{-- User --}}
                 @if (auth()->check())
-                    <x-mary-menu-separator />
-                    <x-mary-list-item :item="auth()->user()" value="name" no-separator no-hover
-                        class="-mx-2 !-my-2 rounded">
-                        <x-slot:actions>
-                            <livewire:layout.theme-toggle />
-                            {{-- <x-mary-dropdown title="Settings" icon="o-cog-6-tooth">
+                <x-mary-menu-separator />
+                <x-mary-list-item :item="auth()->user()" value="name" no-separator no-hover
+                    class="-mx-2 !-my-2 rounded">
+                    <x-slot:actions>
+                        <livewire:layout.theme-toggle />
+                        {{-- <x-mary-dropdown title="Settings" icon="o-cog-6-tooth">
                                 <x-mary-menu-item title="Profile" icon="m-user-circle" :href="route('profile')"
                                     wire:navigate />
                                 <livewire:layout.logout-button />
                             </x-mary-dropdown> --}}
-                        </x-slot:actions>
-                    </x-mary-list-item>
+                    </x-slot:actions>
+                </x-mary-list-item>
 
-                    <x-mary-menu-separator />
+                <x-mary-menu-separator />
 
-                    <x-mary-menu-item title="Dashboard" icon="o-home" link="/dashboard" />
+                <x-mary-menu-item title="Dashboard" icon="o-home" link="/dashboard" />
 
-                    @if (auth()->user()->role === 'admin')
-                        <x-mary-menu-item title="Petugas" icon="o-users" link="/petugas" />
-                        <x-mary-menu-item title="Tarif" icon="o-credit-card" link="/tarif" />
-                        <x-mary-menu-sub title="Laporan" icon="o-magnifying-glass">
-                            <x-mary-menu-item title="Pelanggan" icon="o-users" link="/laporan-pelanggan" />
-                            <x-mary-menu-item title="Transaksi" icon="o-document-text" link="/laporan-transaksi" />
+                @if (auth()->user()->role === 'admin')
+                <x-mary-menu-item title="Petugas" icon="o-users" link="/petugas" />
+                <x-mary-menu-item title="Tarif" icon="o-credit-card" link="/tarif" />
+                <x-mary-menu-sub title="Laporan" icon="o-magnifying-glass">
+                    <x-mary-menu-item title="Pelanggan" icon="o-users" link="/laporan-pelanggan" />
+                    <x-mary-menu-item title="Transaksi" icon="o-document-text" link="/laporan-transaksi" />
 
-                        </x-mary-menu-sub>
-                    @endif
+                </x-mary-menu-sub>
+                @endif
 
-                    @if (auth()->user()->role === 'loket')
-                        <x-mary-menu-item title="Pelanggan" icon="o-users" link="/pelanggan" />
-                        <x-mary-menu-item title="Pemakaian" icon="o-bolt" link="/pemakaian" />
-                        <x-mary-menu-item title="Pembayaran" icon="o-credit-card" link="/pembayaran" />
-                        <x-mary-menu-item title="Transaksi" icon="o-cog-6-tooth" link="/transaksi" />
-                    @endif
+                @if (auth()->user()->role === 'loket')
+                <x-mary-menu-item title="Pelanggan" icon="o-users" link="/pelanggan" />
+                <x-mary-menu-item title="Pemakaian" icon="o-bolt" link="/pemakaian" />
+                <x-mary-menu-item title="Pembayaran" icon="o-credit-card" link="/pembayaran" />
+                <x-mary-menu-item title="Transaksi" icon="o-cog-6-tooth" link="/transaksi" />
+                @endif
 
-                    {{-- Menu Umum --}}
-                    {{-- <x-mary-menu-sub title="Settings" icon="o-cog-6-tooth">
+                {{-- Menu Umum --}}
+                {{-- <x-mary-menu-sub title="Settings" icon="o-cog-6-tooth">
                         <x-mary-menu-item title="Wifi" icon="o-wifi" link="####" />
                         <label class="flex cursor-pointer gap-2">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
@@ -103,10 +103,10 @@
                         </label>
                         <x-mary-menu-item title="Archives" icon="o-archive-box" link="####" />
                     </x-mary-menu-sub> --}}
-                    <x-mary-menu-sub title="Settings" icon="o-cog-6-tooth">
-                        <x-mary-menu-item title="Profile" icon="m-user-circle" :href="route('profile')" wire:navigate />
-                        <livewire:layout.logout-button />
-                    </x-mary-menu-sub>
+                <x-mary-menu-sub title="Settings" icon="o-cog-6-tooth">
+                    <x-mary-menu-item title="Profile" icon="m-user-circle" :href="route('profile')" wire:navigate />
+                    <livewire:layout.logout-button />
+                </x-mary-menu-sub>
 
                 @endif
             </x-mary-menu>
@@ -114,15 +114,15 @@
         </x-slot:sidebar>
 
 
-        {{-- The `$slot` goes here --}}
+        {{-- The $slot goes here --}}
         <x-slot:content>
             <!-- Page Heading -->
             @if (isset($header))
-                <header>
-                    <div>
-                        {{ $header }}
-                    </div>
-                </header>
+            <header>
+                <div>
+                    {{ $header }}
+                </div>
+            </header>
             @endif
 
             {{ $slot }}
